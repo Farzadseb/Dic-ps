@@ -1,212 +1,231 @@
-// ============================================
-// فایل اصلی برنامه - app.js
-// ============================================
+// تنظیمات
+const CONFIG = {
+    TELEGRAM_TOKEN: '8553224514:AAG0XXzA8da55jCGXnzStP-0IxHhnfkTPRw',
+    TEACHER_CHAT_ID: '96991859',
+    TEACHER_PHONE: '09017708544',
+    TEACHER_NAME: 'استاد Fred'
+};
 
-// پایگاه داده کامل 200 لغت A1
-const A1_DICTIONARY = {}; // از فایل JSON لود می‌شود
-
-// وضعیت برنامه
-const appState = {
+// حالت برنامه
+const state = {
     isMuted: false,
+    isNightMode: false,
     isGuest: true,
-    userId: null,
-    activationCode: null,
-    teacherChatId: '96991859',
-    
-    // آمار
     searchCount: 0,
-    savedWords: [],
-    dailyTests: [],
-    totalPracticeTime: 0,
-    
-    // سیستم لایتنر
-    leitnerSystem: {
-        boxes: { 1: [], 2: [], 3: [], 4: [], 5: [] },
-        lastReview: {},
-        nextReview: {},
-        stats: {
-            totalWords: 0,
-            masteredWords: 0,
-            reviewQueue: 0
-        }
-    },
-    
-    // تست روزانه
-    dailyTest: {
-        date: null,
-        words: [],
-        currentQuestion: 0,
-        score: 0,
-        completed: false,
-        timeSpent: 0
-    },
-    
-    // پیشرفت
-    progress: {
-        streak: 0,
-        lastActive: null,
-        totalWordsLearned: 0,
-        accuracy: 0,
-        level: 1
-    },
-    
-    // UI state
-    currentPage: 'dictionary'
+    savedWords: []
 };
 
-// المنت‌های DOM
-const elements = {
-    soundControl: document.getElementById('soundControl'),
-    userStatus: document.getElementById('userStatus'),
-    userTypeText: document.getElementById('userTypeText'),
-    searchCountBadge: document.getElementById('searchCountBadge'),
-    activateBtn: document.getElementById('activateBtn'),
-    
-    navBtns: document.querySelectorAll('.nav-btn'),
-    savedCountBadge: document.getElementById('savedCountBadge'),
-    leitnerCountBadge: document.getElementById('leitnerCountBadge'),
-    testCountBadge: document.getElementById('testCountBadge'),
-    
-    contentArea: document.getElementById('contentArea'),
-    
-    activationPanel: document.getElementById('activationPanel'),
-    activationCodeInput: document.getElementById('activationCodeInput'),
-    submitActivationBtn: document.getElementById('submitActivationBtn'),
-    closeActivationBtn: document.getElementById('closeActivationBtn'),
-    
-    messageModal: document.getElementById('messageModal'),
-    modalTitle: document.getElementById('modalTitle'),
-    modalBody: document.getElementById('modalBody'),
-    modalFooter: document.getElementById('modalFooter'),
-    
-    notificationContainer: document.getElementById('notificationContainer')
-};
-
-// تنظیمات تلگرام
-const TELEGRAM_CONFIG = {
-    botToken: '8553224514:AAG0XXzA8da55jCGXnzStP-0IxHhnfkTPRw',
-    teacherChatId: '96991859',
-    botUsername: 'EnglishTeacherHelperBot',
-    apiUrl: 'https://api.telegram.org/bot'
-};
-
-// بارگذاری برنامه
-function initApp() {
+// بارگذاری اولیه
+document.addEventListener('DOMContentLoaded', () => {
     loadState();
-    loadDictionary();
     setupEventListeners();
     updateUI();
-    showPage('dictionary');
-    
-    checkAccountStatus();
-    checkDailyTest();
-    checkLeitnerReviews();
-    
-    sendTelegramReport('app_start', {
-        userId: appState.userId,
-        isGuest: appState.isGuest,
-        userType: appState.userType,
-        version: '1.0.0'
-    });
     
     setTimeout(() => {
-        if (appState.isGuest && appState.searchCount === 0) {
-            showNotification('🎉 خوش آمدید! شما 5 جستجوی رایگان دارید.', 'info');
-        }
+        showNotification('🎉 به دیکشنری A1 خوش آمدید!', 'success');
     }, 1000);
-}
+});
 
-// بارگذاری دیکشنری از JSON
-async function loadDictionary() {
-    try {
-        const response = await fetch('pdcs_a1.json');
-        if (!response.ok) {
-            // اگر فایل اصلی موجود نبود، از نمونه استفاده کن
-            const sampleResponse = await fetch('pdcs_a1_sample.json');
-            Object.assign(A1_DICTIONARY, await sampleResponse.json());
-            showNotification('دیکشنری نمونه بارگذاری شد', 'info');
-        } else {
-            Object.assign(A1_DICTIONARY, await response.json());
-            showNotification('دیکشنری A1 بارگذاری شد', 'success');
-        }
-    } catch (error) {
-        console.error('خطا در بارگذاری دیکشنری:', error);
-        // دیکشنری پیش‌فرض
-        Object.assign(A1_DICTIONARY, {
-            "hello": {
-                persian: "سلام",
-                englishDefinition: "A greeting or expression of goodwill.",
-                example: { english: "Hello, how are you?", persian: "سلام، حال شما چطور است؟" }
-            },
-            "goodbye": {
-                persian: "خداحافظ",
-                englishDefinition: "A word used when parting.",
-                example: { english: "Goodbye, see you tomorrow!", persian: "خداحافظ، فردا می‌بینمت!" }
-            }
-        });
+// بارگذاری حالت
+function loadState() {
+    const saved = localStorage.getItem('a1_state');
+    if (saved) {
+        Object.assign(state, JSON.parse(saved));
+    }
+    if (state.isNightMode) {
+        document.body.classList.add('night-mode');
     }
 }
 
-// مدیریت رویدادها
-function setupEventListeners() {
-    elements.soundControl.addEventListener('click', toggleSound);
-    elements.activateBtn.addEventListener('click', showActivationPanel);
-    elements.submitActivationBtn.addEventListener('click', submitActivation);
-    elements.closeActivationBtn.addEventListener('click', hideActivationPanel);
-    
-    elements.navBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const page = btn.dataset.page;
-            showPage(page);
-        });
-    });
-    
-    elements.activationCodeInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') submitActivation();
-    });
+// ذخیره حالت
+function saveState() {
+    localStorage.setItem('a1_state', JSON.stringify(state));
 }
 
-// نمایش صفحات
-async function showPage(page) {
-    appState.currentPage = page;
+// راه‌اندازی رویدادها
+function setupEventListeners() {
+    // کنترل صدا
+    document.getElementById('voiceControl').addEventListener('click', toggleVoice);
     
-    // آپدیت ناوبری
-    elements.navBtns.forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.dataset.page === page) {
-            btn.classList.add('active');
-        }
-    });
+    // کنترل تم
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+}
+
+// تغییر صدا
+function toggleVoice() {
+    state.isMuted = !state.isMuted;
+    updateVoiceButton();
+    saveState();
+    showNotification(state.isMuted ? '🔇 صدا خاموش' : '🔊 صدا روشن', 'info');
+}
+
+function updateVoiceButton() {
+    const icon = document.querySelector('#voiceControl i');
+    const text = document.querySelector('#voiceControl span');
+    if (state.isMuted) {
+        icon.className = 'fas fa-volume-mute';
+        text.textContent = 'صدا خاموش';
+    } else {
+        icon.className = 'fas fa-volume-up';
+        text.textContent = 'صدا روشن';
+    }
+}
+
+// تغییر تم
+function toggleTheme() {
+    state.isNightMode = !state.isNightMode;
+    document.body.classList.toggle('night-mode');
+    updateThemeButton();
+    saveState();
+    showNotification(state.isNightMode ? '🌙 تم شب' : '☀️ تم روز', 'info');
+}
+
+function updateThemeButton() {
+    const icon = document.querySelector('#themeToggle i');
+    icon.className = state.isNightMode ? 'fas fa-sun' : 'fas fa-moon';
+}
+
+// جستجوی لغت
+function searchWord() {
+    const input = document.getElementById('searchInput');
+    const word = input.value.trim().toLowerCase();
     
-    // اگر صفحه خارجی است
-    if (page.includes('.html')) {
-        window.location.href = page;
+    if (!word) {
+        showNotification('کلمه را وارد کنید', 'warning');
         return;
     }
     
-    // نمایش صفحه داخلی
-    switch(page) {
-        case 'dictionary':
-            showDictionaryPage();
-            break;
-        case 'saved':
-            showSavedWordsPage();
-            break;
-        case 'leitner':
-            showLeitnerPage();
-            break;
-        case 'test':
-            showTestPage();
-            break;
-        case 'progress':
-            showProgressPage();
-            break;
-        default:
-            showDictionaryPage();
-    }
+    state.searchCount++;
+    saveState();
     
-    updateUI();
+    // نمایش نتیجه
+    showWordResult(word);
+    
+    // تلفظ
+    if (!state.isMuted) {
+        speakWord(word);
+    }
 }
 
-// بقیه توابع اصلی...
-// (توابع handleSearch, showWordDetail, toggleSaveWord, etc.)
+function quickSearch(word) {
+    document.getElementById('searchInput').value = word;
+    searchWord();
+}
+
+function showWordResult(word) {
+    const resultDiv = document.getElementById('wordResult');
+    resultDiv.innerHTML = `
+        <div class="word-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <h2 style="color: var(--primary); margin: 0;">${word}</h2>
+                    <p style="color: var(--text-dark); margin: 10px 0;">معنی: ...</p>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-icon" onclick="speakWord('${word}')" style="background: var(--primary-light); color: var(--primary);">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="btn-icon" onclick="saveWord('${word}')" style="background: var(--primary); color: white;">
+                        <i class="fas fa-bookmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <button class="search-btn" onclick="contactTeacher()" style="width: 100%; background: var(--primary);">
+                    <i class="fas fa-phone"></i> تماس با استاد برای آموزش کامل
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+// تلفظ
+function speakWord(word) {
+    if ('speechSynthesis' in window && !state.isMuted) {
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.7;
+        speechSynthesis.speak(utterance);
+    }
+}
+
+// تغییر صفحه
+function showPage(pageId) {
+    // مخفی کردن همه صفحات
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+    
+    // آپدیت دکمه‌ها
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // نمایش صفحه انتخاب شده
+    document.getElementById(pageId + 'Page').classList.add('active');
+    event.target.classList.add('active');
+}
+
+// تماس با استاد
+function contactTeacher() {
+    const message = `👤 کاربر: ${state.isGuest ? 'مهمان' : 'زبان‌آموز'}
+📞 شماره: ${CONFIG.TEACHER_PHONE}
+👨‍🏫 استاد: ${CONFIG.TEACHER_NAME}
+⏰ زمان: ${new Date().toLocaleString('fa-IR')}`;
+    
+    // تلگرام
+    fetch(`https://api.telegram.org/bot${CONFIG.TELEGRAM_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            chat_id: CONFIG.TEACHER_CHAT_ID,
+            text: message
+        })
+    });
+    
+    // واتس‌اپ
+    window.open(`https://wa.me/98${CONFIG.TEACHER_PHONE.substring(1)}?text=سلام%20استاد%20Fred%20میخواهم%20زبان%20یاد%20بگیرم`, '_blank');
+    
+    showNotification('✅ درخواست شما ارسال شد. استاد به زودی با شما تماس می‌گیرد.', 'success');
+}
+
+// نوتیفیکیشن
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#4f46e5'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        z-index: 9999;
+        animation: slideIn 0.3s ease;
+        max-width: 400px;
+    `;
+    notification.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+            <span>${message}</span>
+        </div>
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 5000);
+}
+
+// آپدیت UI
+function updateUI() {
+    updateVoiceButton();
+    updateThemeButton();
+}
+
+// توابع عمومی
+window.quickSearch = quickSearch;
+window.contactTeacher = contactTeacher;
+window.showPage = showPage;
+window.speakWord = speakWord;
