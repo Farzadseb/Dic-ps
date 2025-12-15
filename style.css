@@ -1,152 +1,549 @@
+/* ریست */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
+/* متغیرهای رنگ */
 :root {
-    --primary-color: #4a6bff;
-    --primary-light: #eef1ff;
-    --secondary-color: #6c757d;
-    --success-color: #28a745;
-    --danger-color: #dc3545;
-    --light-color: #f8f9fa;
-    --dark-color: #343a40;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --border-radius: 12px;
+    --primary: #2563eb;
+    --primary-light: #dbeafe;
+    --primary-dark: #1d4ed8;
+    --text: #1f2937;
+    --text-light: #6b7280;
+    --background: #f8fafc;
+    --white: #ffffff;
+    --border: #e5e7eb;
+    --success: #10b981;
+    --radius: 12px;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
+/* بدنه */
 body {
-    font-family: 'Vazirmatn', sans-serif;
-    background: #f5f7ff;
-    color: #333;
-    padding: 15px;
+    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 16px;
+    min-height: 100vh;
 }
 
 .container {
     max-width: 100%;
-    min-height: 100vh;
+    margin: 0 auto;
 }
 
+/* هدر */
 .header {
-    background: linear-gradient(135deg, var(--primary-color), #6a82fb);
-    color: white;
-    padding: 20px;
-    border-radius: var(--border-radius);
-    margin-bottom: 20px;
     text-align: center;
+    margin-bottom: 32px;
+    padding-top: 20px;
 }
 
 .logo {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 8px;
 }
 
 .logo i {
-    margin-left: 10px;
+    font-size: 28px;
+    color: var(--primary);
+}
+
+.logo h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.subtitle {
+    color: var(--text-light);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* بخش جستجو */
+.search-section {
+    margin-bottom: 24px;
 }
 
 .search-box {
     display: flex;
-    background: white;
-    border-radius: var(--border-radius);
-    padding: 5px;
-    box-shadow: var(--shadow);
-    margin-bottom: 10px;
+    gap: 8px;
+    margin-bottom: 12px;
 }
 
-.search-box i {
-    color: var(--secondary-color);
-    padding: 15px;
-}
-
-#wordInput {
+.english-input {
     flex: 1;
-    border: none;
-    padding: 15px;
-    font-size: 1rem;
+    padding: 16px 20px;
+    font-size: 16px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--white);
     outline: none;
-    text-align: right;
+    transition: all 0.2s;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    text-align: left;
+    direction: ltr;
+}
+
+.english-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.english-input::placeholder {
+    color: #9ca3af;
+    text-align: left;
 }
 
 .search-btn {
-    background: var(--primary-color);
+    width: 56px;
+    height: 56px;
+    background: var(--primary);
     color: white;
     border: none;
-    padding: 0 20px;
-    border-radius: 8px;
+    border-radius: var(--radius);
+    font-size: 18px;
     cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.hint {
+.search-btn:hover {
+    background: var(--primary-dark);
+}
+
+.search-hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+.word-example {
     background: var(--primary-light);
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    color: var(--primary-color);
-    margin-bottom: 20px;
+    color: var(--primary-dark);
+    padding: 4px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
 }
 
+.word-example:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* محتوای اصلی */
 .main-content {
-    background: white;
-    border-radius: var(--border-radius);
-    padding: 20px;
-    box-shadow: var(--shadow);
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
-.welcome-message {
+/* کارت خوش‌آمد */
+.welcome-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 32px 24px;
     text-align: center;
-    padding: 20px;
+    box-shadow: var(--shadow);
 }
 
 .welcome-icon {
-    font-size: 3rem;
-    color: var(--primary-color);
+    font-size: 48px;
+    color: var(--primary);
     margin-bottom: 20px;
 }
 
-.features {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin: 20px 0;
+.welcome-card h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text);
 }
 
-.feature {
-    background: var(--primary-light);
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 0.9rem;
+.welcome-card p {
+    color: var(--text-light);
+    margin-bottom: 28px;
+    font-size: 15px;
 }
 
-.section {
-    background: var(--light-color);
-    padding: 15px;
-    border-radius: var(--border-radius);
-    margin-bottom: 15px;
+.quick-guide {
+    text-align: right;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.quick-guide h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    margin-bottom: 16px;
+    color: var(--text);
+}
+
+.quick-guide h3 i {
+    color: var(--primary);
+}
+
+.quick-guide p {
+    text-align: right;
+    margin-bottom: 8px;
+    color: var(--text-light);
+    font-size: 14px;
+    padding-right: 0;
+}
+
+.quick-guide p:before {
+    content: none;
+}
+
+/* کارت لغت */
+.word-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* هدر لغت */
+.word-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.word-title {
+    flex: 1;
 }
 
 .english-word {
-    font-size: 2rem;
-    color: var(--primary-color);
-    font-weight: bold;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    text-align: left;
+    direction: ltr;
 }
 
 .persian-meaning {
-    font-size: 1.3rem;
-    color: var(--dark-color);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    text-align: right;
+}
+
+/* بخش‌های اطلاعات */
+.info-section {
     margin-bottom: 20px;
 }
 
-.footer {
-    text-align: center;
-    padding: 20px;
-    color: var(--secondary-color);
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 600;
 }
 
+.section-title i {
+    color: var(--primary);
+    font-size: 14px;
+}
+
+/* جعبه‌های متن */
+.text-box {
+    background: #f9fafb;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 8px;
+    border-right: 3px solid var(--primary-light);
+}
+
+.english-box {
+    text-align: left;
+    direction: ltr;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+    margin-bottom: 12px;
+}
+
+.persian-box {
+    text-align: right;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    margin-top: 12px;
+}
+
+/* حالت‌های مختلف */
+.definition-box {
+    border-right-color: #60a5fa;
+}
+
+.example-box {
+    border-right-color: #34d399;
+}
+
+.collocation-box {
+    border-right-color: #f59e0b;
+}
+
+.phrase-box {
+    border-right-color: #8b5cf6;
+}
+
+.phrasal-box {
+    border-right-color: #ef4444;
+}
+
+/* دکمه تلفظ */
+.sound-btn {
+    background: var(--primary-light);
+    border: 2px solid var(--primary);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    color: var(--primary);
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.sound-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.05);
+}
+
+.sound-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* پیام تلفظ */
+.pronunciation-message {
+    background: #ecfdf5;
+    color: #065f46;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.pronunciation-message i {
+    color: #10b981;
+}
+
+/* حالت بی‌صدا */
+.muted-note {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    margin-right: auto;
+}
+
+/* خطا و لودینگ */
+.error-card, .loading-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 40px 24px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.error-card i, .loading-card i {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.error-card i {
+    color: #ef4444;
+}
+
+.loading-card i {
+    color: var(--primary);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.error-card h3, .loading-card h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: var(--text);
+}
+
+.error-card p, .loading-card p {
+    color: var(--text-light);
+    margin-bottom: 24px;
+}
+
+.back-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.back-btn:hover {
+    background: var(--primary-dark);
+}
+
+/* فوتر */
+.footer {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.sound-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--white);
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: var(--shadow);
+    width: fit-content;
+    margin: 0 auto 12px;
+}
+
+.sound-control:hover {
+    background: #f9fafb;
+}
+
+.sound-control.muted {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.sound-control.muted i {
+    color: #dc2626;
+}
+
+.footer-info {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    font-size: 12px;
+}
+
+.level-tag, .accent-tag {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+/* رسپانسیو */
 @media (max-width: 480px) {
-    .features {
-        grid-template-columns: 1fr;
+    body {
+        padding: 12px;
+    }
+    
+    .header {
+        margin-bottom: 24px;
+    }
+    
+    .logo h1 {
+        font-size: 20px;
+    }
+    
+    .english-word {
+        font-size: 28px;
+    }
+    
+    .word-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+    
+    .sound-btn {
+        align-self: flex-start;
+    }
+    
+    .search-box {
+        flex-direction: column;
+    }
+    
+    .search-btn {
+        width: 100%;
+        height: 48px;
+    }
+    
+    .text-box {
+        padding: 14px;
+    }
+    
+    .welcome-card {
+        padding: 24px 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    .english-word {
+        font-size: 24px;
+    }
+    
+    .persian-meaning {
+        font-size: 16px;
+    }
+    
+    .welcome-card h2 {
+        font-size: 18px;
     }
 }
