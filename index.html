@@ -3,35 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دیکشنری آموزشی A1</title>
+    <title>دیکشنری A1</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <!-- هدر -->
-        <header class="header">
-            <div class="header-content">
-                <h1 class="logo">
-                    <i class="fas fa-book-open"></i>
-                    دیکشنری A1
-                </h1>
-                <div class="mute-toggle" id="muteToggle">
-                    <i class="fas fa-volume-up" id="muteIcon"></i>
-                    <span id="muteText">صدا روشن</span>
-                </div>
-            </div>
-            <p class="subtitle">مخصوص زبان‌آموزان سطح مبتدی</p>
-        </header>
-
-        <!-- نوار جستجو -->
-        <div class="search-container">
+    <div class="app-container">
+        <!-- جستجو -->
+        <div class="search-section">
             <div class="search-box">
                 <input 
                     type="text" 
                     id="wordInput" 
-                    placeholder="کلمه انگلیسی را وارد کنید"
+                    placeholder="کلمه انگلیسی"
                     autocomplete="off"
                     dir="ltr"
                     class="english-input"
@@ -40,44 +24,56 @@
                     <i class="fas fa-search"></i>
                 </button>
             </div>
+            
+            <div class="user-info">
+                <div class="sound-control" id="muteToggle">
+                    <i class="fas fa-volume-up"></i>
+                    <span>صدا</span>
+                </div>
+                <div class="user-type" id="userType">
+                    <i class="fas fa-user"></i>
+                    <span>مهمان</span>
+                </div>
+            </div>
         </div>
 
-        <!-- نمایش نتایج -->
-        <main class="main-content" id="resultsContainer">
-            <div class="welcome-message">
-                <div class="welcome-icon">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <h2>به دیکشنری آموزشی A1 خوش آمدید</h2>
-                <p>لغت انگلیسی خود را در کادر بالا جستجو کنید</p>
-                
-                <div class="sample-words">
-                    <p>برای شروع می‌توانید این کلمات را امتحان کنید:</p>
-                    <div class="word-buttons">
-                        <button class="word-btn" onclick="searchWord('be')">be</button>
-                        <button class="word-btn" onclick="searchWord('have')">have</button>
-                        <button class="word-btn" onclick="searchWord('go')">go</button>
-                        <button class="word-btn" onclick="searchWord('work')">work</button>
-                        <button class="word-btn" onclick="searchWord('see')">see</button>
-                    </div>
-                </div>
-            </div>
+        <!-- نتایج -->
+        <main class="results-container" id="resultsContainer">
+            <!-- محتوا توسط JS پر می‌شود -->
         </main>
 
-        <!-- فوتر -->
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <span class="info-item"><i class="fas fa-star"></i> سطح A1</span>
-                    <span class="info-item"><i class="fas fa-globe-americas"></i> لهجه آمریکایی</span>
-                    <span class="info-item"><i class="fas fa-volume-up"></i> تلفظ خودکار</span>
-                </div>
-                <div class="sound-indicator" id="soundIndicator">
-                    <div class="indicator-dot active"></div>
-                    <span>صدا فعال</span>
-                </div>
+        <!-- ناوبری -->
+        <nav class="bottom-nav">
+            <button class="nav-btn" onclick="showDictionary()">
+                <i class="fas fa-book"></i>
+                <span>دیکشنری</span>
+            </button>
+            <button class="nav-btn" onclick="showSavedWords()">
+                <i class="fas fa-bookmark"></i>
+                <span>ذخیره‌شده</span>
+            </button>
+            <button class="nav-btn" onclick="showPractice()">
+                <i class="fas fa-brain"></i>
+                <span>تمرین</span>
+            </button>
+            <button class="nav-btn" onclick="showProfile()">
+                <i class="fas fa-user"></i>
+                <span>پروفایل</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- سیستم فعال‌سازی -->
+    <div class="activation-modal" id="activationModal">
+        <div class="modal-content">
+            <h3><i class="fas fa-key"></i> فعال‌سازی حساب</h3>
+            <p>برای دسترسی نامحدود، کد فعال‌سازی را وارد کنید:</p>
+            <input type="text" id="activationCode" placeholder="کد فعال‌سازی" dir="ltr">
+            <div class="modal-buttons">
+                <button onclick="activateAccount()" class="btn-primary">فعال‌سازی</button>
+                <button onclick="closeActivationModal()" class="btn-secondary">استفاده به عنوان مهمان</button>
             </div>
-        </footer>
+        </div>
     </div>
 
     <script src="app.js"></script>
