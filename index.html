@@ -3,155 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دیکشنری آموزشی A1 - یادگیری زبان انگلیسی</title>
-    <link rel="stylesheet" href="style.css">
+    <title>دیکشنری آموزشی A1</title>
+    
+    <!-- فونت و آیکون -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- فایل‌های محلی -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* استایل اضطراری اگر style.css کار نکرد */
+        body { 
+            font-family: 'Vazirmatn', Tahoma, sans-serif;
+            margin: 0; padding: 0;
+            background: #f8fafc;
+        }
+        .loading {
+            text-align: center;
+            padding: 100px 20px;
+            color: #64748b;
+        }
+    </style>
 </head>
 <body>
-    <!-- نوار بالایی -->
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-section">
-                    <div class="logo">
-                        <i class="fas fa-book-open"></i>
-                        <span>دیکشنری A1</span>
-                    </div>
-                    <div class="app-version">ورژن 1.0.0</div>
-                </div>
-                
-                <div class="header-actions">
-                    <!-- کنترل صدا -->
-                    <button class="btn-icon" id="soundControl">
-                        <i class="fas fa-volume-up"></i>
-                        <span>صدا روشن</span>
-                    </button>
-                    
-                    <!-- وضعیت کاربر -->
-                    <div class="user-status guest" id="userStatus">
-                        <i class="fas fa-user"></i>
-                        <span id="userTypeText">مهمان</span>
-                        <span class="badge" id="searchCountBadge">5</span>
-                    </div>
-                    
-                    <!-- دکمه فعال‌سازی -->
-                    <button class="btn-primary btn-sm" id="activateBtn">
-                        <i class="fas fa-key"></i>
-                        فعال‌سازی
-                    </button>
-                </div>
-            </div>
+    <!-- هدر ساده -->
+    <div class="header">
+        <div class="logo">
+            <i class="fas fa-book-open"></i>
+            <span>دیکشنری A1</span>
         </div>
-    </header>
-
-    <!-- ناوبری اصلی -->
-    <nav class="main-nav">
-        <div class="container">
-            <div class="nav-tabs">
-                <button class="nav-btn active" data-page="dictionary">
-                    <i class="fas fa-book"></i>
-                    دیکشنری
-                </button>
-                <button class="nav-btn" data-page="saved">
-                    <i class="fas fa-bookmark"></i>
-                    ذخیره‌ها
-                    <span class="badge" id="savedCountBadge">0</span>
-                </button>
-                <button class="nav-btn" data-page="leitner">
-                    <i class="fas fa-brain"></i>
-                    لایتنر
-                    <span class="badge" id="leitnerCountBadge">0</span>
-                </button>
-                <button class="nav-btn" data-page="test">
-                    <i class="fas fa-file-alt"></i>
-                    تست روزانه
-                    <span class="badge" id="testCountBadge">!</span>
-                </button>
-                <button class="nav-btn" data-page="progress">
-                    <i class="fas fa-chart-line"></i>
-                    پیشرفت
-                </button>
-                <button class="nav-btn" data-page="quiz_a1.html">
-                    <i class="fas fa-question-circle"></i>
-                    کوییز
-                </button>
-                <button class="nav-btn" data-page="pdf.html">
-                    <i class="fas fa-file-pdf"></i>
-                    PDF
-                </button>
-                <button class="nav-btn" data-page="teacher.html">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    معلم
-                </button>
-            </div>
+        <div class="user-status">
+            <i class="fas fa-user"></i>
+            <span>مهمان</span>
         </div>
-    </nav>
-
+    </div>
+    
+    <!-- ناوبری -->
+    <div class="nav">
+        <button class="nav-btn active" onclick="loadPage('dictionary')">
+            <i class="fas fa-book"></i> دیکشنری
+        </button>
+        <button class="nav-btn" onclick="loadPage('saved')">
+            <i class="fas fa-bookmark"></i> ذخیره‌ها
+        </button>
+        <button class="nav-btn" onclick="loadPage('test')">
+            <i class="fas fa-file-alt"></i> تست
+        </button>
+    </div>
+    
     <!-- محتوای اصلی -->
-    <main class="main-content">
-        <div class="container">
-            <div id="contentArea">
-                <!-- محتوای صفحات اینجا لود می‌شود -->
-            </div>
-        </div>
-    </main>
-
-    <!-- پنل فعال‌سازی -->
-    <div class="modal-overlay" id="activationPanel">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-key"></i> فعال‌سازی حساب</h3>
-                <button class="btn-icon btn-close" id="closeActivationBtn">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body" id="activationContent">
-                <div class="activation-input-group">
-                    <input type="text" 
-                           id="activationCodeInput" 
-                           class="activation-input" 
-                           placeholder="کد فعال‌سازی را وارد کنید"
-                           dir="ltr"
-                           maxlength="15">
-                </div>
-                <div id="activationInfo"></div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" onclick="hideActivationPanel()">لغو</button>
-                <button class="btn-primary" id="submitActivationBtn">
-                    <i class="fas fa-check"></i>
-                    فعال‌سازی
-                </button>
-            </div>
+    <div class="container" id="mainContent">
+        <div class="loading">
+            <h2>🎯 در حال بارگذاری...</h2>
+            <p>لطفاً چند لحظه صبر کنید</p>
         </div>
     </div>
-
-    <!-- مدال عمومی -->
-    <div class="modal-overlay" id="messageModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalTitle">عنوان مدال</h3>
-                <button class="btn-icon btn-close" onclick="closeModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body" id="modalBody">
-                محتوای مدال
-            </div>
-            <div class="modal-footer" id="modalFooter">
-                <button class="btn-secondary" onclick="closeModal()">بستن</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- نوتیفیکیشن‌ها -->
-    <div class="notification-container" id="notificationContainer"></div>
-
+    
+    <!-- پیام‌ها -->
+    <div id="messageContainer"></div>
+    
     <!-- اسکریپت‌ها -->
+    <script>
+        // ابتدا بررسی می‌کنیم فایل‌ها لود شده‌اند
+        console.log('🔧 شروع بارگذاری برنامه...');
+        
+        // تابع نمایش پیام
+        function showMessage(text, type = 'info') {
+            const container = document.getElementById('messageContainer');
+            const colors = {
+                success: '#10b981',
+                error: '#ef4444',
+                info: '#3b82f6'
+            };
+            
+            const msg = document.createElement('div');
+            msg.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                right: 20px;
+                background: white;
+                padding: 15px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                border-right: 4px solid ${colors[type]};
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                z-index: 1000;
+                animation: slideIn 0.3s forwards;
+            `;
+            
+            msg.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}" 
+                   style="color: ${colors[type]}; font-size: 20px;"></i>
+                <div style="flex: 1;">${text}</div>
+                <button onclick="this.parentElement.remove()" 
+                        style="background: none; border: none; color: #9ca3af; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            container.appendChild(msg);
+            setTimeout(() => msg.remove(), 3000);
+            
+            // لاگ در کنسول
+            console.log(`📢 ${type.toUpperCase()}: ${text}`);
+        }
+        
+        // بارگذاری صفحه
+        function loadPage(page) {
+            const content = document.getElementById('mainContent');
+            
+            if (page === 'dictionary') {
+                content.innerHTML = `
+                    <div style="padding: 20px;">
+                        <h2 style="color: #1e293b; margin-bottom: 25px;">
+                            <i class="fas fa-book"></i> دیکشنری A1
+                        </h2>
+                        
+                        <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                            <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                                <input type="text" id="searchInput" 
+                                       placeholder="مثال: hello, book, student..." 
+                                       style="flex: 1; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 16px;">
+                                <button onclick="searchWord()" 
+                                        style="padding: 15px 30px; background: #3b82f6; color: white; border: none; border-radius: 10px;">
+                                    <i class="fas fa-search"></i> جستجو
+                                </button>
+                            </div>
+                            
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px;">
+                                <span style="color: #64748b;">کلمات نمونه:</span>
+                                <button onclick="quickSearch('hello')" style="padding: 10px 20px; background: #dbeafe; color: #1d4ed8; border: none; border-radius: 20px;">hello</button>
+                                <button onclick="quickSearch('book')" style="padding: 10px 20px; background: #dbeafe; color: #1d4ed8; border: none; border-radius: 20px;">book</button>
+                                <button onclick="quickSearch('pen')" style="padding: 10px 20px; background: #dbeafe; color: #1d4ed8; border: none; border-radius: 20px;">pen</button>
+                            </div>
+                            
+                            <div id="searchResult" style="min-height: 200px;">
+                                <div style="text-align: center; padding: 50px 20px; color: #cbd5e1;">
+                                    <i class="fas fa-search" style="font-size: 48px; margin-bottom: 20px;"></i>
+                                    <p>کلمه‌ای را جستجو کنید</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                showMessage('📖 صفحه دیکشنری بارگذاری شد', 'success');
+            }
+        }
+        
+        // تابع جستجو
+        function searchWord() {
+            const word = document.getElementById('searchInput').value.trim().toLowerCase();
+            
+            if (!word) {
+                showMessage('لطفاً کلمه‌ای وارد کنید', 'error');
+                return;
+            }
+            
+            // نمونه داده‌ها
+            const sampleData = {
+                "hello": { persian: "سلام", meaning: "سلام کردن" },
+                "book": { persian: "کتاب", meaning: "یک اثر نوشته شده" },
+                "pen": { persian: "خودکار", meaning: "وسیله نوشتن" },
+                "student": { persian: "دانش‌آموز", meaning: "کسی که درس می‌خواند" },
+                "teacher": { persian: "معلم", meaning: "کسی که آموزش می‌دهد" }
+            };
+            
+            if (sampleData[word]) {
+                const data = sampleData[word];
+                document.getElementById('searchResult').innerHTML = `
+                    <div style="background: #f0f9ff; padding: 25px; border-radius: 12px; border-right: 4px solid #3b82f6;">
+                        <div style="font-size: 32px; font-weight: bold; color: #1d4ed8; margin-bottom: 10px;">
+                            ${word}
+                        </div>
+                        <div style="font-size: 24px; color: #059669; margin-bottom: 20px;">
+                            ${data.persian}
+                        </div>
+                        <div style="color: #475569; margin-bottom: 25px;">
+                            ${data.meaning}
+                        </div>
+                        <div style="display: flex; gap: 15px;">
+                            <button onclick="speakWord('${word}')" 
+                                    style="padding: 12px 25px; background: #8b5cf6; color: white; border: none; border-radius: 8px;">
+                                <i class="fas fa-volume-up"></i> تلفظ
+                            </button>
+                            <button onclick="saveWord('${word}')" 
+                                    style="padding: 12px 25px; background: #10b981; color: white; border: none; border-radius: 8px;">
+                                <i class="fas fa-bookmark"></i> ذخیره
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                showMessage(`✅ "${word}" پیدا شد`, 'success');
+            } else {
+                showMessage(`❌ "${word}" پیدا نشد`, 'error');
+            }
+        }
+        
+        function quickSearch(word) {
+            document.getElementById('searchInput').value = word;
+            searchWord();
+        }
+        
+        function speakWord(word) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(word);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.8;
+                speechSynthesis.speak(utterance);
+                showMessage(`🔊 تلفظ: ${word}`, 'info');
+            }
+        }
+        
+        function saveWord(word) {
+            showMessage(`💾 "${word}" ذخیره شد`, 'success');
+        }
+        
+        // وقتی صفحه لود شد
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ DOM لود شد');
+            showMessage('🎯 برنامه آماده است!', 'info');
+            loadPage('dictionary');
+            
+            // آپدیت دکمه‌های ناوبری
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+        
+        // توابع عمومی
+        window.searchWord = searchWord;
+        window.quickSearch = quickSearch;
+        window.speakWord = speakWord;
+        window.saveWord = saveWord;
+        window.loadPage = loadPage;
+        
+    </script>
+    
+    <!-- اسکریپت اصلی برنامه -->
     <script src="app.js"></script>
-    <script src="progress.js"></script>
 </body>
 </html>
