@@ -1,10 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="fa" dir="rtl">
 <head>
-    <title>Test Dic</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دیکشنری آموزشی A1</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>دیکشنری A1</h1>
-    <p>آپلود موفق!</p>
+    <div class="container">
+        <!-- هدر -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">
+                    <i class="fas fa-book-open"></i>
+                    دیکشنری A1
+                </h1>
+                <div class="mute-toggle" id="muteToggle">
+                    <i class="fas fa-volume-up"></i>
+                    <span>صدا روشن</span>
+                </div>
+            </div>
+            <p class="subtitle">مخصوص زبان‌آموزان سطح مبتدی - لهجه آمریکایی</p>
+        </header>
+
+        <!-- نوار جستجو -->
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input 
+                    type="text" 
+                    id="wordInput" 
+                    placeholder="لغت انگلیسی را وارد کنید (مثال: apple)"
+                    autocomplete="off"
+                    autocapitalize="off"
+                >
+                <button id="searchBtn" class="search-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="hint">
+                <i class="fas fa-lightbulb"></i>
+                کلماتی مانند: apple, book, cat, dog, house, water
+            </div>
+        </div>
+
+        <!-- وضعیت تلفظ -->
+        <div class="pronunciation-status" id="pronunciationStatus">
+            <div class="status-content">
+                <i class="fas fa-volume-up"></i>
+                <span>تلفظ بعد از جستجو پخش می‌شود</span>
+            </div>
+            <div class="status-info">
+                <span class="speed-tag">سرعت: 0.7x</span>
+                <span class="accent-tag">لهجه: آمریکایی</span>
+                <span class="voice-tag">صدای زنانه</span>
+            </div>
+        </div>
+
+        <!-- نمایش نتایج -->
+        <main class="main-content" id="resultsContainer">
+            <div class="welcome-message">
+                <div class="welcome-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2>به دیکشنری آموزشی A1 خوش آمدید</h2>
+                <p>لغت انگلیسی خود را در کادر بالا جستجو کنید</p>
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>معنی فارسی دقیق</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>مثال انگلیسی و فارسی</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Collocation و Phrasal Verbs</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>تلفظ خودکار</span>
+                    </div>
+                </div>
+                <div class="instructions">
+                    <h3><i class="fas fa-info-circle"></i> راهنمای استفاده:</h3>
+                    <p>1. یک کلمه انگلیسی بنویسید (مانند apple)</p>
+                    <p>2. دکمه جستجو را بزنید یا Enter را فشار دهید</p>
+                    <p>3. اطلاعات کامل با تلفظ خودکار نمایش داده می‌شود</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- فوتر -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="level-badge">
+                    <i class="fas fa-star"></i>
+                    سطح A1
+                </div>
+                <p class="footer-note">
+                    همه مطالب برای سطح مبتدی (A1) تنظیم شده‌اند
+                </p>
+                <p class="footer-links">
+                    <a href="https://github.com/Farzadseb/Dic-ps" target="_blank">
+                        <i class="fab fa-github"></i> مخزن GitHub
+                    </a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
 </body>
-</html>
+                    </html>
