@@ -1,4 +1,4 @@
-// پایگاه داده لغات
+// پایگاه داده لغات A1
 const A1_DICTIONARY = {
     "be": {
         persian: "بودن",
@@ -102,11 +102,15 @@ const A1_DICTIONARY = {
     }
 };
 
-// المنت‌ها
+// المنت‌های DOM
 const wordInput = document.getElementById('wordInput');
 const searchBtn = document.getElementById('searchBtn');
 const muteToggle = document.getElementById('muteToggle');
+const muteIcon = document.getElementById('muteIcon');
+const muteText = document.getElementById('muteText');
 const resultsContainer = document.getElementById('resultsContainer');
+const soundIndicator = document.querySelector('#soundIndicator .indicator-dot');
+const soundIndicatorText = document.querySelector('#soundIndicator span');
 
 // وضعیت
 let isMuted = false;
@@ -121,14 +125,12 @@ muteToggle.addEventListener('click', toggleMute);
 
 // مقداردهی اولیه
 function initApp() {
-    // فوکوس روی input
-    wordInput.focus();
-    
-    // نمایش پیام خوش‌آمد
+    updateMuteUI();
     showWelcome();
+    wordInput.focus();
 }
 
-// جستجو
+// مدیریت جستجو
 function handleSearch() {
     const word = wordInput.value.trim().toLowerCase();
     
@@ -138,100 +140,99 @@ function handleSearch() {
     }
     
     if (!A1_DICTIONARY[word]) {
-        showError(`"${word}" یافت نشد. کلمات: be, have, go, work, see`);
+        showError(`کلمه "${word}" یافت نشد. کلمات موجود: be, have, go, work, see`);
         return;
     }
     
-    // نمایش نتیجه
-    displayWord(word);
+    showLoading();
     
-    // تلفظ خودکار
-    if (!isMuted && 'speechSynthesis' in window) {
-        speakWord(word);
-    }
+    setTimeout(() => {
+        displayWordResult(word);
+        if (!isMuted) {
+            speakWord(word);
+        }
+    }, 300);
 }
 
-// نمایش لغت
-function displayWord(word) {
-    const data = A1_DICTIONARY[word];
+// نمایش نتیجه لغت
+function displayWordResult(word) {
+    const wordData = A1_DICTIONARY[word];
     
     const html = `
         <div class="word-card">
             <div class="word-header">
                 <div class="word-title">
                     <div class="english-word">${word}</div>
-                    <div class="persian-meaning">${data.persian}</div>
+                    <div class="persian-meaning">${wordData.persian}</div>
                 </div>
                 <button class="sound-btn" onclick="speakWord('${word}')" ${isMuted ? 'disabled' : ''}>
                     <i class="fas fa-volume-up"></i>
                 </button>
             </div>
             
-            <div class="info-section">
+            <div class="section">
                 <div class="section-title">
                     <i class="fas fa-info-circle"></i>
                     <span>تعریف انگلیسی</span>
                 </div>
-                <div class="text-box definition-box">
-                    <div class="english-box">${data.englishDefinition}</div>
+                <div class="section-content">
+                    <div class="english-text">${wordData.englishDefinition}</div>
+                    <div class="persian-text">تعریف انگلیسی ساده برای سطح A1</div>
                 </div>
             </div>
             
-            <div class="info-section">
+            <div class="section">
                 <div class="section-title">
-                    <i class="fas fa-comment"></i>
+                    <i class="fas fa-comment-alt"></i>
                     <span>مثال</span>
                 </div>
-                <div class="text-box example-box">
-                    <div class="english-box">${data.example.english}</div>
-                    <div class="persian-box">${data.example.persian}</div>
+                <div class="section-content">
+                    <div class="english-text">${wordData.example.english}</div>
+                    <div class="persian-text">${wordData.example.persian}</div>
                 </div>
             </div>
             
-            <div class="info-section">
+            <div class="section">
                 <div class="section-title">
                     <i class="fas fa-link"></i>
                     <span>Collocation</span>
                 </div>
-                <div class="text-box collocation-box">
-                    <div class="english-box">${data.collocation.english}</div>
-                    <div class="persian-box">${data.collocation.persian}</div>
+                <div class="section-content">
+                    <div class="english-text">${wordData.collocation.english}</div>
+                    <div class="persian-text">${wordData.collocation.persian}</div>
                 </div>
             </div>
             
-            <div class="info-section">
+            <div class="section">
                 <div class="section-title">
                     <i class="fas fa-quote-right"></i>
                     <span>Phrase</span>
                 </div>
-                <div class="text-box phrase-box">
-                    <div class="english-box">${data.phrase.english}</div>
-                    <div class="persian-box">${data.phrase.persian}</div>
+                <div class="section-content">
+                    <div class="english-text">${wordData.phrase.english}</div>
+                    <div class="persian-text">${wordData.phrase.persian}</div>
                 </div>
             </div>
             
-            <div class="info-section">
+            <div class="section">
                 <div class="section-title">
                     <i class="fas fa-bolt"></i>
                     <span>Phrasal Verb</span>
                 </div>
-                <div class="text-box phrasal-box">
-                    <div class="english-box">${data.phrasalVerb.english}</div>
-                    <div class="persian-box">${data.phrasalVerb.persian}</div>
+                <div class="section-content">
+                    <div class="english-text">${wordData.phrasalVerb.english}</div>
+                    <div class="persian-text">${wordData.phrasalVerb.persian}</div>
                 </div>
             </div>
             
-            ${isMuted ? 
-                '<div class="pronunciation-message"><i class="fas fa-volume-mute"></i> حالت بی‌صدا فعال است</div>' : 
-                '<div class="pronunciation-message"><i class="fas fa-volume-up"></i> تلفظ پخش شد</div>'
-            }
+            <div class="pronunciation-message ${isMuted ? 'muted' : ''}">
+                <i class="fas ${isMuted ? 'fa-volume-mute' : 'fa-volume-up'}"></i>
+                <span>${isMuted ? 'حالت بی‌صدا فعال است - تلفظ پخش نمی‌شود' : 'تلفظ کلمه پخش شد'}</span>
+            </div>
         </div>
     `;
     
     resultsContainer.innerHTML = html;
-    
-    // اسکرول به بالا
-    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // تلفظ کلمه
@@ -244,51 +245,77 @@ function speakWord(word) {
     utterance.lang = 'en-US';
     utterance.rate = 0.7;
     
-    // سعی برای صدای زنانه
-    const voices = speechSynthesis.getVoices();
-    const femaleVoice = voices.find(v => 
-        v.lang === 'en-US' && 
-        v.name.toLowerCase().includes('female')
-    );
-    
-    if (femaleVoice) utterance.voice = femaleVoice;
-    
     speechSynthesis.speak(utterance);
 }
 
 // تغییر حالت صدا
 function toggleMute() {
     isMuted = !isMuted;
-    const icon = muteToggle.querySelector('i');
-    const text = muteToggle.querySelector('span');
+    updateMuteUI();
     
     if (isMuted) {
-        icon.className = 'fas fa-volume-mute';
-        text.textContent = 'صدا خاموش است';
-        muteToggle.classList.add('muted');
-    } else {
-        icon.className = 'fas fa-volume-up';
-        text.textContent = 'صدا روشن است';
-        muteToggle.classList.remove('muted');
+        speechSynthesis.cancel();
     }
 }
 
-// نمایش خوش‌آمد
+// بروزرسانی UI صدا
+function updateMuteUI() {
+    if (isMuted) {
+        // دکمه Mute
+        muteIcon.className = 'fas fa-volume-mute';
+        muteText.textContent = 'صدا خاموش';
+        muteToggle.classList.remove('active');
+        muteToggle.classList.add('inactive');
+        
+        // نشانگر در فوتر
+        soundIndicator.classList.remove('active');
+        soundIndicator.classList.add('inactive');
+        soundIndicatorText.textContent = 'صدا غیرفعال';
+    } else {
+        // دکمه Mute
+        muteIcon.className = 'fas fa-volume-up';
+        muteText.textContent = 'صدا روشن';
+        muteToggle.classList.remove('inactive');
+        muteToggle.classList.add('active');
+        
+        // نشانگر در فوتر
+        soundIndicator.classList.remove('inactive');
+        soundIndicator.classList.add('active');
+        soundIndicatorText.textContent = 'صدا فعال';
+    }
+}
+
+// نمایش پیام خوش‌آمد
 function showWelcome() {
     resultsContainer.innerHTML = `
-        <div class="welcome-card">
+        <div class="welcome-message">
             <div class="welcome-icon">
-                <i class="fas fa-language"></i>
+                <i class="fas fa-graduation-cap"></i>
             </div>
-            <h2>لغت انگلیسی خود را جستجو کنید</h2>
-            <p>کلمه مورد نظر را بنویسید و دکمه جستجو را بزنید</p>
+            <h2>به دیکشنری آموزشی A1 خوش آمدید</h2>
+            <p>لغت انگلیسی خود را در کادر بالا جستجو کنید</p>
             
-            <div class="quick-guide">
-                <h3><i class="fas fa-rocket"></i> نحوه استفاده:</h3>
-                <p>1. کلمه انگلیسی را در کادر بالا بنویسید</p>
-                <p>2. دکمه جستجو را بزنید یا Enter را فشار دهید</p>
-                <p>3. اطلاعات کامل با تلفظ نمایش داده می‌شود</p>
+            <div class="sample-words">
+                <p>برای شروع می‌توانید این کلمات را امتحان کنید:</p>
+                <div class="word-buttons">
+                    <button class="word-btn" onclick="searchWord('be')">be</button>
+                    <button class="word-btn" onclick="searchWord('have')">have</button>
+                    <button class="word-btn" onclick="searchWord('go')">go</button>
+                    <button class="word-btn" onclick="searchWord('work')">work</button>
+                    <button class="word-btn" onclick="searchWord('see')">see</button>
+                </div>
             </div>
+        </div>
+    `;
+}
+
+// نمایش حالت لودینگ
+function showLoading() {
+    resultsContainer.innerHTML = `
+        <div class="loading">
+            <div class="loading-spinner"></div>
+            <h3>در حال جستجو...</h3>
+            <p>لطفاً کمی صبر کنید</p>
         </div>
     `;
 }
@@ -296,12 +323,12 @@ function showWelcome() {
 // نمایش خطا
 function showError(message) {
     resultsContainer.innerHTML = `
-        <div class="error-card">
+        <div class="error-message">
             <i class="fas fa-exclamation-triangle"></i>
             <h3>کلمه یافت نشد</h3>
             <p>${message}</p>
-            <button class="back-btn" onclick="showWelcome()">
-                بازگشت
+            <button onclick="showWelcome()" class="search-btn" style="margin-top: 20px; width: auto; padding: 12px 24px;">
+                <i class="fas fa-home"></i> بازگشت
             </button>
         </div>
     `;
@@ -311,4 +338,4 @@ function showError(message) {
 function searchWord(word) {
     wordInput.value = word;
     handleSearch();
-}
+                            }
