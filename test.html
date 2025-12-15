@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تست روزانه - دیکشنری A1</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <a href="index.html" class="logo" style="text-decoration: none; color: inherit;">
+                        <i class="fas fa-book-open"></i>
+                        <span>تست روزانه</span>
+                    </a>
+                    <div class="app-version">Daily Challenge</div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-primary" id="startTestBtn">
+                        <i class="fas fa-play"></i>
+                        شروع تست
+                    </button>
+                    <a href="index.html" class="btn-secondary">
+                        <i class="fas fa-arrow-right"></i>
+                        بازگشت
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div id="testContent">
+                <!-- محتوای تست از app.js لود می‌شود -->
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('test');
+        });
+    </script>
+</body>
+</html>
