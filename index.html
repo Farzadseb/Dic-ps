@@ -2,253 +2,1112 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دیکشنری آموزشی A1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>دیکشنری آموزشی A1 - یادگیری زبان انگلیسی</title>
     
     <!-- فونت و آیکون -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- فایل‌های محلی -->
-    <link rel="stylesheet" href="style.css">
-    
+    <!-- استایل اصلی -->
     <style>
-        /* استایل اضطراری اگر style.css کار نکرد */
-        body { 
-            font-family: 'Vazirmatn', Tahoma, sans-serif;
-            margin: 0; padding: 0;
-            background: #f8fafc;
+        /* ========== RESET & BASE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
-        .loading {
+        
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #e0e7ff;
+            --primary-dark: #4338ca;
+            
+            --secondary: #64748b;
+            --secondary-light: #f1f5f9;
+            --secondary-dark: #475569;
+            
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --success-dark: #059669;
+            
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --danger-dark: #dc2626;
+            
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --warning-dark: #d97706;
+            
+            --text-dark: #1e293b;
+            --text-medium: #475569;
+            --text-light: #64748b;
+            
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            
+            --border-color: #e2e8f0;
+            --border-radius: 12px;
+            --border-radius-sm: 8px;
+            --border-radius-lg: 16px;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            
+            --font-family: 'Vazirmatn', -apple-system, system-ui, sans-serif;
+        }
+        
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-family);
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
+            padding: 0;
+            margin: 0;
+        }
+        
+        /* جلوگیری از زوم در موبایل */
+        input, select, textarea, button {
+            font-size: 16px;
+            font-family: var(--font-family);
+        }
+        
+        /* ========== HEADER ========== */
+        .main-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .logo i {
+            font-size: 1.5rem;
+        }
+        
+        .app-version {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* ========== BUTTONS ========== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary-light);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--border-color);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: var(--success-dark);
+        }
+        
+        .btn-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .btn-icon.active {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* ========== USER STATUS ========== */
+        .user-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .user-status.guest {
+            background: var(--warning-light);
+            color: var(--warning-dark);
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 22px;
+            height: 22px;
+            padding: 0 6px;
+            background: var(--danger);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 11px;
+        }
+        
+        /* ========== NAVIGATION ========== */
+        .main-nav {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 15px;
+            position: sticky;
+            top: 64px;
+            z-index: 99;
+            width: 100%;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 5px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border: none;
+            background: none;
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        
+        .nav-btn:hover {
+            background: var(--secondary-light);
+            color: var(--primary);
+        }
+        
+        .nav-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .nav-btn .badge {
+            margin-right: 5px;
+        }
+        
+        /* ========== MAIN CONTENT ========== */
+        .main-content {
+            padding: 20px 15px;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* ========== DICTIONARY PAGE ========== */
+        .dictionary-page {
+            width: 100%;
+        }
+        
+        .search-section {
+            background: var(--bg-white);
+            border-radius: var(--border-radius-lg);
+            padding: 25px 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            width: 100%;
+        }
+        
+        .search-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-family: var(--font-family);
+            transition: all 0.2s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        
+        .search-btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 1rem;
+        }
+        
+        .quick-words {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .quick-words p {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+        
+        .word-chip {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-family: inherit;
+        }
+        
+        .word-chip:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-1px);
+        }
+        
+        /* ========== WORD CARD ========== */
+        .word-card {
+            background: var(--bg-white);
+            border-radius: var(--border-radius-lg);
+            padding: 25px 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            width: 100%;
+        }
+        
+        .word-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .word-main {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .word-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .english-word {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            word-break: break-word;
+        }
+        
+        .word-level {
+            background: var(--success);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .persian-meaning {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .phonetic {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .word-actions {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        
+        .action-btn {
+            width: 45px;
+            height: 45px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-medium);
+            font-size: 1.1rem;
+        }
+        
+        .action-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: scale(1.05);
+        }
+        
+        .action-btn.saved {
+            border-color: var(--success);
+            color: var(--success);
+        }
+        
+        .action-btn.sound-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        /* ========== INFO SECTIONS ========== */
+        .info-section {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            color: var(--text-medium);
+            font-weight: 500;
+        }
+        
+        .english-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+        
+        .persian-text {
+            font-size: 0.95rem;
+            color: var(--text-medium);
+            line-height: 1.7;
+        }
+        
+        /* ========== WELCOME MESSAGE ========== */
+        .welcome-message {
             text-align: center;
-            padding: 100px 20px;
-            color: #64748b;
+            padding: 60px 20px;
+            background: var(--bg-white);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+        }
+        
+        .welcome-message i {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+        
+        .user-limit-info {
+            max-width: 400px;
+            margin: 30px auto 0;
+        }
+        
+        /* ========== NOTIFICATIONS ========== */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            left: 15px;
+            right: 15px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+        
+        .notification {
+            background: var(--bg-white);
+            border-radius: var(--border-radius);
+            padding: 18px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideInRight 0.3s ease;
+            pointer-events: auto;
+            border-right: 4px solid var(--primary);
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .notification.success {
+            border-right-color: var(--success);
+        }
+        
+        .notification.error {
+            border-right-color: var(--danger);
+        }
+        
+        .notification.warning {
+            border-right-color: var(--warning);
+        }
+        
+        .notification.info {
+            border-right-color: var(--primary);
+        }
+        
+        .notification i {
+            font-size: 1.4rem;
+        }
+        
+        .notification.success i {
+            color: var(--success);
+        }
+        
+        .notification.error i {
+            color: var(--danger);
+        }
+        
+        .notification.warning i {
+            color: var(--warning);
+        }
+        
+        .notification.info i {
+            color: var(--primary);
+        }
+        
+        .notification-content {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+        
+        /* ========== MODAL ========== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 15px;
+        }
+        
+        .modal-content {
+            background: var(--bg-white);
+            border-radius: var(--border-radius-lg);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow: hidden;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 60vh;
+        }
+        
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 12px;
+        }
+        
+        .btn-close {
+            padding: 8px;
+            border: none;
+            background: none;
+            color: var(--text-light);
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 1.2rem;
+        }
+        
+        .btn-close:hover {
+            background: var(--secondary-light);
+            color: var(--text-dark);
+        }
+        
+        /* ========== ACTIVATION PANEL ========== */
+        .activation-panel {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+        }
+        
+        .activation-input-group {
+            margin-bottom: 20px;
+        }
+        
+        .activation-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            text-align: center;
+            letter-spacing: 2px;
+            font-family: monospace;
+        }
+        
+        /* ========== RESPONSIVE ========== */
+        @media (min-width: 768px) {
+            html {
+                font-size: 17px;
+            }
+            
+            .main-header {
+                padding: 15px 30px;
+            }
+            
+            .main-nav {
+                padding: 10px 30px;
+            }
+            
+            .main-content {
+                padding: 30px;
+            }
+            
+            .search-section {
+                padding: 30px;
+            }
+            
+            .search-container {
+                flex-direction: row;
+            }
+            
+            .search-input {
+                flex: 1;
+            }
+            
+            .search-btn {
+                width: auto;
+                min-width: 120px;
+            }
+            
+            .word-card {
+                padding: 30px;
+            }
+            
+            .word-header {
+                flex-wrap: nowrap;
+            }
+            
+            .word-actions {
+                margin-top: 0;
+            }
+            
+            .notification-container {
+                left: 30px;
+                right: 30px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .main-content {
+                padding: 40px;
+            }
+            
+            .search-section {
+                padding: 35px;
+            }
+            
+            .word-card {
+                padding: 35px;
+            }
+            
+            .english-word {
+                font-size: 2.2rem;
+            }
+            
+            .persian-meaning {
+                font-size: 1.4rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-content {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            
+            .logo {
+                font-size: 1.1rem;
+            }
+            
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .nav-btn {
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+            
+            .english-word {
+                font-size: 1.8rem;
+            }
+            
+            .persian-meaning {
+                font-size: 1.1rem;
+            }
+            
+            .action-btn {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        /* ========== UTILITY CLASSES ========== */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mt-20 {
+            margin-top: 20px;
+        }
+        
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+        
+        .p-20 {
+            padding: 20px;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <!-- هدر ساده -->
-    <div class="header">
-        <div class="logo">
-            <i class="fas fa-book-open"></i>
-            <span>دیکشنری A1</span>
+    <!-- ========== HEADER ========== -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">
+                        <i class="fas fa-book-open"></i>
+                        <span>دیکشنری A1</span>
+                    </div>
+                    <div class="app-version">ورژن 1.0.0</div>
+                </div>
+                
+                <div class="header-actions">
+                    <!-- کنترل صدا -->
+                    <button class="btn-icon" id="soundControl">
+                        <i class="fas fa-volume-up"></i>
+                        <span>صدا روشن</span>
+                    </button>
+                    
+                    <!-- وضعیت کاربر -->
+                    <div class="user-status guest" id="userStatus">
+                        <i class="fas fa-user"></i>
+                        <span id="userTypeText">مهمان</span>
+                        <span class="badge" id="searchCountBadge">5</span>
+                    </div>
+                    
+                    <!-- دکمه فعال‌سازی -->
+                    <button class="btn-primary btn-sm" id="activateBtn">
+                        <i class="fas fa-key"></i>
+                        فعال‌سازی
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="user-status">
-            <i class="fas fa-user"></i>
-            <span>مهمان</span>
-        </div>
-    </div>
-    
-    <!-- ناوبری -->
-    <div class="nav">
-        <button class="nav-btn active" onclick="loadPage('dictionary')">
-            <i class="fas fa-book"></i> دیکشنری
-        </button>
-        <button class="nav-btn" onclick="loadPage('saved')">
-            <i class="fas fa-bookmark"></i> ذخیره‌ها
-        </button>
-        <button class="nav-btn" onclick="loadPage('test')">
-            <i class="fas fa-file-alt"></i> تست
-        </button>
-    </div>
-    
-    <!-- محتوای اصلی -->
-    <div class="container" id="mainContent">
-        <div class="loading">
-            <h2>🎯 در حال بارگذاری...</h2>
-            <p>لطفاً چند لحظه صبر کنید</p>
-        </div>
-    </div>
-    
-    <!-- پیام‌ها -->
-    <div id="messageContainer"></div>
-    
-    <!-- اسکریپت‌ها -->
-    <script>
-        // ابتدا بررسی می‌کنیم فایل‌ها لود شده‌اند
-        console.log('🔧 شروع بارگذاری برنامه...');
-        
-        // تابع نمایش پیام
-        function showMessage(text, type = 'info') {
-            const container = document.getElementById('messageContainer');
-            const colors = {
-                success: '#10b981',
-                error: '#ef4444',
-                info: '#3b82f6'
-            };
-            
-            const msg = document.createElement('div');
-            msg.style.cssText = `
-                position: fixed;
-                top: 20px;
-                left: 20px;
-                right: 20px;
-                background: white;
-                padding: 15px;
-                border-radius: 10px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                border-right: 4px solid ${colors[type]};
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                z-index: 1000;
-                animation: slideIn 0.3s forwards;
-            `;
-            
-            msg.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}" 
-                   style="color: ${colors[type]}; font-size: 20px;"></i>
-                <div style="flex: 1;">${text}</div>
-                <button onclick="this.parentElement.remove()" 
-                        style="background: none; border: none; color: #9ca3af; cursor: pointer;">
-                    <i class="fas fa-times"></i>
+    </header>
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="main-nav">
+        <div class="container">
+            <div class="nav-tabs">
+                <button class="nav-btn active" data-page="dictionary">
+                    <i class="fas fa-book"></i>
+                    دیکشنری
                 </button>
-            `;
-            
-            container.appendChild(msg);
-            setTimeout(() => msg.remove(), 3000);
-            
-            // لاگ در کنسول
-            console.log(`📢 ${type.toUpperCase()}: ${text}`);
-        }
-        
-        // بارگذاری صفحه
-        function loadPage(page) {
-            const content = document.getElementById('mainContent');
-            
-            if (page === 'dictionary') {
-                content.innerHTML = `
-                    <div style="padding: 20px;">
-                        <h2 style="color: #1e293b; margin-bottom: 25px;">
-                            <i class="fas fa-book"></i> دیکشنری A1
-                        </h2>
-                        
-                        <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-                            <div style="display: flex; gap: 15px; margin-bottom: 20px;">
-                                <input type="text" id="searchInput" 
-                                       placeholder="مثال: hello, book, student..." 
-                                       style="flex: 1; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 16px;">
-                                <button onclick="searchWord()" 
-                                        style="padding: 15px 30px; background: #3b82f6; color: white; border: none; border-radius: 10px;">
-                                    <i class="fas fa-search"></i> جستجو
-                                </button>
-                            </div>
-                            
-                            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px;">
-                                <span style="color: #64748b;">کلمات نمونه:</span>
-                                <button onclick="quickSearch('hello')" style="padding: 10px 20px; background: #dbeafe; color: #1d4ed8; border: none; border-radius: 20px;">hello</button>
-                                <button onclick="quickSearch('book')" style="padding: 10px 20px; background: #dbeafe; color: #1d4ed8; border: none; border-radius: 20px;">book</button>
-                                <button onclick="quickSearch('pen')" style="padding: 10px 20px; background: #dbeafe; color: #1d4ed8; border: none; border-radius: 20px;">pen</button>
-                            </div>
-                            
-                            <div id="searchResult" style="min-height: 200px;">
-                                <div style="text-align: center; padding: 50px 20px; color: #cbd5e1;">
-                                    <i class="fas fa-search" style="font-size: 48px; margin-bottom: 20px;"></i>
-                                    <p>کلمه‌ای را جستجو کنید</p>
+                <button class="nav-btn" data-page="saved">
+                    <i class="fas fa-bookmark"></i>
+                    ذخیره‌ها
+                    <span class="badge" id="savedCountBadge">0</span>
+                </button>
+                <button class="nav-btn" data-page="leitner">
+                    <i class="fas fa-brain"></i>
+                    لایتنر
+                    <span class="badge" id="leitnerCountBadge">0</span>
+                </button>
+                <button class="nav-btn" data-page="test">
+                    <i class="fas fa-file-alt"></i>
+                    تست روزانه
+                    <span class="badge" id="testCountBadge">!</span>
+                </button>
+                <button class="nav-btn" data-page="progress">
+                    <i class="fas fa-chart-line"></i>
+                    پیشرفت
+                </button>
+                <button class="nav-btn" data-page="quiz">
+                    <i class="fas fa-question-circle"></i>
+                    کوییز
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="main-content">
+        <div class="container">
+            <div id="contentArea">
+                <!-- محتوای صفحات اینجا لود می‌شود -->
+                <div class="dictionary-page">
+                    <div class="search-section">
+                        <div class="search-container">
+                            <input type="text" 
+                                   class="search-input" 
+                                   id="searchInput"
+                                   placeholder="کلمه انگلیسی را وارد کنید..."
+                                   dir="ltr">
+                            <button class="btn-primary search-btn" id="searchButton">
+                                <i class="fas fa-search"></i>
+                                جستجو
+                            </button>
+                        </div>
+                        <div class="quick-words">
+                            <p>کلمات پرکاربرد:</p>
+                            <button class="word-chip" onclick="quickSearch('hello')">hello</button>
+                            <button class="word-chip" onclick="quickSearch('book')">book</button>
+                            <button class="word-chip" onclick="quickSearch('pen')">pen</button>
+                            <button class="word-chip" onclick="quickSearch('table')">table</button>
+                            <button class="word-chip" onclick="quickSearch('student')">student</button>
+                            <button class="word-chip" onclick="quickSearch('teacher')">teacher</button>
+                        </div>
+                    </div>
+                    
+                    <div id="dictionaryResults">
+                        <div class="welcome-message">
+                            <div class="text-center p-20">
+                                <i class="fas fa-book-open"></i>
+                                <h2 class="mb-20">دیکشنری آموزشی A1</h2>
+                                <p class="mb-20">کلمه انگلیسی مورد نظر خود را جستجو کنید</p>
+                                <div class="user-limit-info">
+                                    <div style="background: var(--warning-light); padding: 15px; border-radius: var(--border-radius); border: 1px solid var(--warning); color: var(--warning-dark);">
+                                        <i class="fas fa-info-circle"></i>
+                                        حالت مهمان: <span id="remainingSearches">5</span> جستجوی باقی‌مانده
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                `;
-                
-                showMessage('📖 صفحه دیکشنری بارگذاری شد', 'success');
-            }
-        }
-        
-        // تابع جستجو
-        function searchWord() {
-            const word = document.getElementById('searchInput').value.trim().toLowerCase();
-            
-            if (!word) {
-                showMessage('لطفاً کلمه‌ای وارد کنید', 'error');
-                return;
-            }
-            
-            // نمونه داده‌ها
-            const sampleData = {
-                "hello": { persian: "سلام", meaning: "سلام کردن" },
-                "book": { persian: "کتاب", meaning: "یک اثر نوشته شده" },
-                "pen": { persian: "خودکار", meaning: "وسیله نوشتن" },
-                "student": { persian: "دانش‌آموز", meaning: "کسی که درس می‌خواند" },
-                "teacher": { persian: "معلم", meaning: "کسی که آموزش می‌دهد" }
-            };
-            
-            if (sampleData[word]) {
-                const data = sampleData[word];
-                document.getElementById('searchResult').innerHTML = `
-                    <div style="background: #f0f9ff; padding: 25px; border-radius: 12px; border-right: 4px solid #3b82f6;">
-                        <div style="font-size: 32px; font-weight: bold; color: #1d4ed8; margin-bottom: 10px;">
-                            ${word}
-                        </div>
-                        <div style="font-size: 24px; color: #059669; margin-bottom: 20px;">
-                            ${data.persian}
-                        </div>
-                        <div style="color: #475569; margin-bottom: 25px;">
-                            ${data.meaning}
-                        </div>
-                        <div style="display: flex; gap: 15px;">
-                            <button onclick="speakWord('${word}')" 
-                                    style="padding: 12px 25px; background: #8b5cf6; color: white; border: none; border-radius: 8px;">
-                                <i class="fas fa-volume-up"></i> تلفظ
-                            </button>
-                            <button onclick="saveWord('${word}')" 
-                                    style="padding: 12px 25px; background: #10b981; color: white; border: none; border-radius: 8px;">
-                                <i class="fas fa-bookmark"></i> ذخیره
-                            </button>
-                        </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ========== ACTIVATION PANEL ========== -->
+    <div class="modal-overlay" id="activationPanel">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-key"></i> فعال‌سازی حساب</h3>
+                <button class="btn-close" id="closeActivationBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="activation-input-group">
+                    <input type="text" 
+                           id="activationCodeInput" 
+                           class="activation-input" 
+                           placeholder="کد فعال‌سازی را وارد کنید"
+                           dir="ltr"
+                           maxlength="15">
+                </div>
+                <div id="activationInfo">
+                    <div style="background: var(--secondary-light); padding: 15px; border-radius: var(--border-radius); margin-top: 15px;">
+                        <p><i class="fas fa-info-circle"></i> برای دریافت کد فعال‌سازی با معلم خود تماس بگیرید.</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-medium);">
+                            کد آزمایشی: <strong>DEMO7</strong> (7 روزه)
+                        </p>
                     </div>
-                `;
-                
-                showMessage(`✅ "${word}" پیدا شد`, 'success');
-            } else {
-                showMessage(`❌ "${word}" پیدا نشد`, 'error');
-            }
-        }
-        
-        function quickSearch(word) {
-            document.getElementById('searchInput').value = word;
-            searchWord();
-        }
-        
-        function speakWord(word) {
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(word);
-                utterance.lang = 'en-US';
-                utterance.rate = 0.8;
-                speechSynthesis.speak(utterance);
-                showMessage(`🔊 تلفظ: ${word}`, 'info');
-            }
-        }
-        
-        function saveWord(word) {
-            showMessage(`💾 "${word}" ذخیره شد`, 'success');
-        }
-        
-        // وقتی صفحه لود شد
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('✅ DOM لود شد');
-            showMessage('🎯 برنامه آماده است!', 'info');
-            loadPage('dictionary');
-            
-            // آپدیت دکمه‌های ناوبری
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-        });
-        
-        // توابع عمومی
-        window.searchWord = searchWord;
-        window.quickSearch = quickSearch;
-        window.speakWord = speakWord;
-        window.saveWord = saveWord;
-        window.loadPage = loadPage;
-        
-    </script>
-    
-    <!-- اسکریپت اصلی برنامه -->
-    <script src="app.js"></script>
-</body>
-</html>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="hideActivationPanel()">لغو</button>
+                <button class="btn-primary" id="submitActivationBtn">
+                    <i class="fas fa-check"></i>
+                    فعال‌سازی
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MESSAGE MODAL ========== -->
+    <div class="modal-overlay" id="messageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">عنوان مدال</h3>
+                <button class="btn-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                محتوای مدال
+            </div>
+            <div class="modal-footer" id="modalFooter">
+                <button class="btn-secondary" onclick="closeModal()">بستن</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== NOTIFICATIONS ========== -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // ==================== CONFIGURATION ====================
+        const CONFIG = {
+            guestSearchLimit: 5,
+            telegramBotToken: '8553224514:AAG0XXzA8da55jCGXnzStP-0IxHhnfkTPRw',
+            teacherChatId: '96991859'
+        };
+
+        // ==================== DICTIONARY DATA ====================
+        const A1_DICTIONARY = {
+            "hello": {
+                persian: "سلام",
+                englishDefinition: "A greeting or expression of goodwill.",
+                example: { english: "Hello, how are you?", persian: "سلام، حالت چطوره؟" },
+                collocation: { english: "say hello", persian: "سلام گفتن" },
+                phrase: { english: "hello there", persian: "سلام بر تو" },
+                phrasalVerb: { english: "hello to", persian: "سلام کردن به" },
+                level: "A1"
+            },
+            "book": {
+                persian: "کتاب",
+                englishDefinition: "A written or printed work consisting of pages.",
+                example: { english: "I'm reading an interesting book.", persian: "دارم یک کتاب جالب می‌خونم." },
+                collocation: { english: "read a book", persian: "کتاب خواندن" },
+                phrase: { english: "book of the month", persian: "کتاب ماه" },
+                phrasalVerb: { english: "book in", persian: "رزرو کردن" },
+                level: "A1"
+            },
+            "pen": {
+                persian: "خودکار",
+                englishDefinition: "A tool for writing with ink.",
+                example: { english: "Can I borrow your pen?", persian: "میشه خودکارت رو قرض بگیرم؟" },
+                collocation: { english: "blue pen", persian: "خودکار آبی" },
+                phrase: { english: "pen and paper", persian: "قلم و کاغذ" },
+                phrasalVerb: { english: "pen down", persian: "نوشتن" },
+                level: "A1"
+            },
+            "student": {
+                persian: "دانش‌آموز / دانشجو",
+                englishDefinition: "A person who is studying at a school or college.",
+                example: { english: "She is a university student.", persian: "او یک دانشجوی دانشگاهه." },
+                collocation: { english: "good student", persian: "دانش‌آموز خوب" },
+                phrase: { english: "student life", persian: "زندگی دانشجویی" },
+                phrasalVerb: { english: "student away", persian: "دور از خانه درس خواندن" },
+                level: "A1"
+            },
+            "teacher": {
+                persian: "معلم",
+                englishDefinition: "A person who teaches, especially in a school.",
+                example: { english: "Our English teacher is very kind.", persian: "معلم انگلیسی ما خیلی مهربونه." },
+                collocation: { english: "math teacher", persian: "معلم ریاضی" },
+                phrase: { english: "teacher's pet", persian: "شاگرد مورد علاقه معلم" },
+                phrasalVerb: { english: "teach up", persian: "آموزش پیشرفته" },
+                level: "A1"
+            },
+            "family": {
+                persian: "خانواده",
+                englishDefinition: "A group of people related by blood or marriage.",
+                example: { english: "I love my family very much.", persian: "من خانواده‌ام رو خیلی دوست دارم." },
+                collocation: { english: "big family", persian: "خانواده بزرگ" },
+                phrase: { english: "family tree", persian: "شجره نامه" },
+                phrasalVerb: { english: "family up", persian: "با خانواده بودن" },
+                level: "A1"
+            },
+            "computer": {
+                persian: "کامپیوتر",
+                englishDefinition: "An electronic device for storing and processing data.",
+                example: { english: "I work on my computer every day.", persian: "من هر روز روی کامپیوترم کار می‌کنم." },
+                collocation: { english: "laptop computer", persian: "کامپیوتر لپ‌تاپ" },
+                phrase: { english: "computer science", persian: "علوم کامپیوتر" },
+                phrasalVerb: { english: "compute out", persian: "محاسبه کردن" },
+                level: "A1"
+            },
+            "school": {
+                persian: "مدرسه",
+                englishDefinition: "An institution for educating children.",
+                example: { english: "My children go to school at 8 AM.", persian: "بچه‌های من ساعت ۸ صبح به مدرسه می‌رن." },
+                collocation: { english: "primary school", persian: "مدرسه ابتدایی" },
+                phrase: { english: "school year", persian: "سال تحصیلی" },
+                phrasalVerb: { english: "school in", persian: "آموزش دادن" },
+                level: "A1"
+            },
+            "house": {
+                persian: "خانه",
+                englishDefinition: "A building for human habitation.",
+                example: { english: "We live in a big house with a garden.", persian: "ما تو یه خونه بزرگ با باغ زندگی می‌کنیم." },
+                collocation: { english: "big house", persian: "خانه بزرگ" },
+                phrase: { english: "housewarming party", persian: "جشن خانه جدید" },
+                phrasalVerb: { english: "house up", persian: "در خانه ماندن" },
+                level: "A1"
+            },
+            "table": {
+                persian: "میز",
+                englishDefinition: "A piece of furniture with a flat top and legs.",
+                example: { english: "Please put the books on the table.", persian: "لطفاً کتاب‌ها رو روی میز بذار." },
+                collocation: { english: "wooden table", persian:
