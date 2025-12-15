@@ -1,0 +1,78 @@
+// فایل منطق جدول رهبران - leaderboard.js
+
+const LEADERBOARD_DATA = {
+    overall: [],
+    vocabulary: [],
+    grammar: [],
+    test: [],
+    streak: []
+};
+
+// بارگذاری صفحه جدول رهبران
+function initLeaderboard() {
+    loadLeaderboardData();
+    renderLeaderboard();
+    updateLeaderboardStats();
+}
+
+// بارگذاری داده‌های جدول
+function loadLeaderboardData() {
+    // در حالت واقعی از API یا localStorage استفاده می‌شود
+    // اینجا داده‌های نمونه تولید می‌کنیم
+    
+    const samplePlayers = [
+        { id: 1, name: 'سارا احمدی', score: 920, words: 85, tests: 12, streak: 15, level: 3 },
+        { id: 2, name: 'علی محمدی', score: 850, words: 78, tests: 10, streak: 12, level: 3 },
+        { id: 3, name: 'رضا کریمی', score: 820, words: 72, tests: 9, streak: 10, level: 2 },
+        { id: 4, name: 'فاطمه حسینی', score: 790, words: 68, tests: 8, streak: 9, level: 2 },
+        { id: 5, name: 'محمد رضایی', score: 750, words: 65, tests: 7, streak: 8, level: 2 },
+        { id: 6, name: 'زهرا علیزاده', score: 720, words: 60, tests: 6, streak: 7, level: 2 },
+        { id: 7, name: 'حسین قاسمی', score: 680, words: 55, tests: 5, streak: 6, level: 1 },
+        { id: 8, name: 'مینا مرادی', score: 650, words: 50, tests: 4, streak: 5, level: 1 },
+        { id: 9, name: 'امیر عباسی', score: 620, words: 45, tests: 3, streak: 4, level: 1 },
+        { id: 10, name: 'نازنین جمشیدی', score: 600, words: 40, tests: 2, streak: 3, level: 1 }
+    ];
+    
+    LEADERBOARD_DATA.overall = [...samplePlayers];
+    LEADERBOARD_DATA.vocabulary = [...samplePlayers].sort((a, b) => b.words - a.words);
+    LEADERBOARD_DATA.grammar = [...samplePlayers].sort((a, b) => b.tests - a.tests);
+    LEADERBOARD_DATA.test = [...samplePlayers].sort((a, b) => b.tests - a.tests);
+    LEADERBOARD_DATA.streak = [...samplePlayers].sort((a, b) => b.streak - a.streak);
+}
+
+// رندر جدول
+function renderLeaderboard() {
+    const category = document.getElementById('leaderboardCategory').value;
+    const players = LEADERBOARD_DATA[category];
+    
+    // آپدیت 3 رتبه برتر
+    updateTop3(players.slice(0, 3));
+    
+    // آپدیت جدول اصلی
+    let tableHTML = '';
+    for (let i = 3; i < Math.min(players.length, 20); i++) {
+        const player = players[i];
+        tableHTML += `
+            <tr>
+                <td>${i + 1}</td>
+                <td>
+                    <div class="player-row">
+                        <div class="player-avatar-small">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="player-name">${player.name}</div>
+                    </div>
+                </td>
+                <td><span class="score-badge">${player.score}</span></td>
+                <td>${player.words}</td>
+                <td>${player.tests}</td>
+                <td><span class="streak-badge">${player.streak} 🔥</span></td>
+                <td><span class="level-badge level-${player.level}">سطح ${player.level}</span></td>
+            </tr>
+        `;
+    }
+    
+    document.getElementById('leaderboardBody').innerHTML = tableHTML;
+}
+
+// بقیه توابع جدول رهبران...
