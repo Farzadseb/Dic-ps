@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پیشرفت تحصیلی - دیکشنری A1</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <a href="index.html" class="logo" style="text-decoration: none; color: inherit;">
+                        <i class="fas fa-book-open"></i>
+                        <span>پیشرفت تحصیلی</span>
+                    </a>
+                    <div class="app-version">Progress Tracking</div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-primary" onclick="exportProgress()">
+                        <i class="fas fa-download"></i>
+                        خروجی
+                    </button>
+                    <a href="index.html" class="btn-secondary">
+                        <i class="fas fa-arrow-right"></i>
+                        بازگشت
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div id="progressContent">
+                <!-- محتوای پیشرفت از progress.js لود می‌شود -->
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+    <script src="progress.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('progress');
+        });
+    </script>
+</body>
+</html>
