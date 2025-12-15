@@ -3,78 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دیکشنری A1</title>
+    <title>دیکشنری آموزشی A1</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="app-container">
-        <!-- جستجو -->
-        <div class="search-section">
-            <div class="search-box">
-                <input 
-                    type="text" 
-                    id="wordInput" 
-                    placeholder="کلمه انگلیسی"
-                    autocomplete="off"
-                    dir="ltr"
-                    class="english-input"
-                >
-                <button id="searchBtn" class="search-btn">
-                    <i class="fas fa-search"></i>
-                </button>
+    <div class="app-container" id="appContainer">
+        <!-- نوار بالایی -->
+        <header class="top-bar">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>دیکشنری A1</h1>
             </div>
             
-            <div class="user-info">
-                <div class="sound-control" id="muteToggle">
+            <div class="user-controls">
+                <div class="control-item" id="soundControl">
                     <i class="fas fa-volume-up"></i>
-                    <span>صدا</span>
+                    <span>صدا روشن</span>
                 </div>
-                <div class="user-type" id="userType">
+                
+                <div class="control-item" id="userStatus">
                     <i class="fas fa-user"></i>
-                    <span>مهمان</span>
+                    <span id="userTypeText">مهمان</span>
+                    <span class="badge" id="searchCountBadge">5</span>
                 </div>
+                
+                <button class="btn-activate" id="activateBtn">
+                    <i class="fas fa-key"></i>
+                    <span>فعال‌سازی</span>
+                </button>
             </div>
-        </div>
+        </header>
 
-        <!-- نتایج -->
-        <main class="results-container" id="resultsContainer">
-            <!-- محتوا توسط JS پر می‌شود -->
-        </main>
-
-        <!-- ناوبری -->
-        <nav class="bottom-nav">
-            <button class="nav-btn" onclick="showDictionary()">
+        <!-- ناوبری اصلی -->
+        <nav class="main-nav">
+            <button class="nav-btn active" data-page="dictionary">
                 <i class="fas fa-book"></i>
                 <span>دیکشنری</span>
             </button>
-            <button class="nav-btn" onclick="showSavedWords()">
+            <button class="nav-btn" data-page="saved">
                 <i class="fas fa-bookmark"></i>
-                <span>ذخیره‌شده</span>
+                <span>ذخیره‌ها</span>
+                <span class="badge" id="savedCountBadge">0</span>
             </button>
-            <button class="nav-btn" onclick="showPractice()">
+            <button class="nav-btn" data-page="leitner">
                 <i class="fas fa-brain"></i>
-                <span>تمرین</span>
+                <span>لایتنر</span>
+                <span class="badge" id="leitnerCountBadge">0</span>
             </button>
-            <button class="nav-btn" onclick="showProfile()">
-                <i class="fas fa-user"></i>
-                <span>پروفایل</span>
+            <button class="nav-btn" data-page="test">
+                <i class="fas fa-file-alt"></i>
+                <span>تست روزانه</span>
+                <span class="badge" id="testCountBadge">0</span>
+            </button>
+            <button class="nav-btn" data-page="progress">
+                <i class="fas fa-chart-line"></i>
+                <span>پیشرفت</span>
             </button>
         </nav>
-    </div>
 
-    <!-- سیستم فعال‌سازی -->
-    <div class="activation-modal" id="activationModal">
-        <div class="modal-content">
-            <h3><i class="fas fa-key"></i> فعال‌سازی حساب</h3>
-            <p>برای دسترسی نامحدود، کد فعال‌سازی را وارد کنید:</p>
-            <input type="text" id="activationCode" placeholder="کد فعال‌سازی" dir="ltr">
-            <div class="modal-buttons">
-                <button onclick="activateAccount()" class="btn-primary">فعال‌سازی</button>
-                <button onclick="closeActivationModal()" class="btn-secondary">استفاده به عنوان مهمان</button>
+        <!-- محتوای اصلی -->
+        <main class="content-area" id="contentArea">
+            <!-- محتوا توسط JS پر می‌شود -->
+        </main>
+
+        <!-- پانل فعال‌سازی -->
+        <div class="activation-panel" id="activationPanel">
+            <div class="panel-header">
+                <h3><i class="fas fa-lock"></i> فعال‌سازی حساب</h3>
+                <button class="btn-close" id="closeActivationBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="panel-body">
+                <p class="panel-info">
+                    <i class="fas fa-info-circle"></i>
+                    برای دسترسی نامحدود به تمام لغات و ویژگی‌ها، کد فعال‌سازی را وارد کنید.
+                </p>
+                
+                <div class="activation-form">
+                    <input type="text" 
+                           id="activationCodeInput" 
+                           placeholder="کد فعال‌سازی (از تلگرام دریافت کنید)"
+                           dir="ltr"
+                           maxlength="8">
+                    <button class="btn-submit" id="submitActivationBtn">
+                        <i class="fas fa-check"></i>
+                        فعال‌سازی
+                    </button>
+                </div>
+                
+                <div class="guest-info">
+                    <p><strong>حالت مهمان:</strong> فقط ۵ جستجو - ذخیره ۱۰ لغت - تست محدود</p>
+                    <p><strong>حالت زبان‌آموز:</strong> نامحدود + گزارش تلگرام + پشتیبانی کامل</p>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- مدال پیام -->
+    <div class="modal-overlay" id="messageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+                <button class="btn-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+            <div class="modal-footer" id="modalFooter"></div>
+        </div>
+    </div>
+
+    <!-- نوت‌فیکیشن -->
+    <div class="notification-container" id="notificationContainer"></div>
 
     <script src="app.js"></script>
 </body>
