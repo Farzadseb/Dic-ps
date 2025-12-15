@@ -1,97 +1,132 @@
-// دیکشنری تست با ۱۰ لغت اول
+// پایگاه داده لغات
 const A1_DICTIONARY = {
     "be": {
         persian: "بودن",
         englishDefinition: "To exist or have a quality.",
-        example: { english: "I want to be a teacher.", persian: "من می‌خواهم یک معلم باشم." },
-        collocation: { english: "be happy", persian: "خوشحال بودن" },
-        phrase: { english: "be careful", persian: "مواظب باش" },
-        phrasalVerb: { english: "be up to", persian: "در حال انجام کاری بودن" }
+        example: {
+            english: "I want to be a teacher.",
+            persian: "من می‌خواهم یک معلم باشم."
+        },
+        collocation: {
+            english: "be happy",
+            persian: "خوشحال بودن"
+        },
+        phrase: {
+            english: "be careful",
+            persian: "مواظب باش"
+        },
+        phrasalVerb: {
+            english: "be up to",
+            persian: "در حال انجام کاری بودن"
+        }
     },
     "have": {
         persian: "داشتن",
         englishDefinition: "To own or possess something.",
-        example: { english: "I have a book.", persian: "من یک کتاب دارم." },
-        collocation: { english: "have time", persian: "زمان داشتن" },
-        phrase: { english: "have a good day", persian: "روز خوبی داشته باشی" },
-        phrasalVerb: { english: "have to", persian: "مجبور بودن" }
+        example: {
+            english: "I have a book.",
+            persian: "من یک کتاب دارم."
+        },
+        collocation: {
+            english: "have time",
+            persian: "زمان داشتن"
+        },
+        phrase: {
+            english: "have a good day",
+            persian: "روز خوبی داشته باشی"
+        },
+        phrasalVerb: {
+            english: "have to",
+            persian: "مجبور بودن"
+        }
     },
     "go": {
         persian: "رفتن",
         englishDefinition: "To move from one place to another.",
-        example: { english: "I go to school.", persian: "من به مدرسه می‌روم." },
-        collocation: { english: "go home", persian: "به خانه رفتن" },
-        phrase: { english: "go for it", persian: "انجامش بده" },
-        phrasalVerb: { english: "go on", persian: "ادامه دادن" }
+        example: {
+            english: "I go to school.",
+            persian: "من به مدرسه می‌روم."
+        },
+        collocation: {
+            english: "go home",
+            persian: "به خانه رفتن"
+        },
+        phrase: {
+            english: "go for it",
+            persian: "انجامش بده"
+        },
+        phrasalVerb: {
+            english: "go on",
+            persian: "ادامه دادن"
+        }
     },
     "work": {
         persian: "کار کردن",
         englishDefinition: "To do a job or activity.",
-        example: { english: "I work in an office.", persian: "من در یک دفتر کار می‌کنم." },
-        collocation: { english: "work hard", persian: "سخت کار کردن" },
-        phrase: { english: "work in progress", persian: "در حال انجام" },
-        phrasalVerb: { english: "work out", persian: "ورزش کردن" }
+        example: {
+            english: "I work in an office.",
+            persian: "من در یک دفتر کار می‌کنم."
+        },
+        collocation: {
+            english: "work hard",
+            persian: "سخت کار کردن"
+        },
+        phrase: {
+            english: "work in progress",
+            persian: "در حال انجام"
+        },
+        phrasalVerb: {
+            english: "work out",
+            persian: "ورزش کردن"
+        }
     },
     "see": {
         persian: "دیدن",
         englishDefinition: "To use your eyes to look.",
-        example: { english: "I see a bird.", persian: "من یک پرنده می‌بینم." },
-        collocation: { english: "see film", persian: "فیلم دیدن" },
-        phrase: { english: "see you later", persian: "بعداً می‌بینمت" },
-        phrasalVerb: { english: "see to", persian: "مراقب بودن" }
-    },
-    "say": {
-        persian: "گفتن",
-        englishDefinition: "To speak words.",
-        example: { english: "Say your name.", persian: "اسمت را بگو." },
-        collocation: { english: "say hello", persian: "سلام گفتن" },
-        phrase: { english: "say when", persian: "وقتی کافی است بگو" },
-        phrasalVerb: { english: "say up", persian: "بلند گفتن" }
-    },
-    "know": {
-        persian: "دانستن",
-        englishDefinition: "To have information.",
-        example: { english: "I know the answer.", persian: "من جواب را می‌دانم." },
-        collocation: { english: "know person", persian: "کسی را شناختن" },
-        phrase: { english: "you know", persian: "می‌دونی" },
-        phrasalVerb: { english: "know about", persian: "درباره چیزی دانستن" }
-    },
-    "like": {
-        persian: "دوست داشتن",
-        englishDefinition: "To find pleasant.",
-        example: { english: "I like coffee.", persian: "من قهوه دوست دارم." },
-        collocation: { english: "like music", persian: "موسیقی دوست داشتن" },
-        phrase: { english: "like that", persian: "مثل آن" },
-        phrasalVerb: { english: "like to", persian: "دوست داشتن که" }
-    },
-    "time": {
-        persian: "زمان",
-        englishDefinition: "Minutes, hours, days.",
-        example: { english: "What time is it?", persian: "ساعت چند است؟" },
-        collocation: { english: "long time", persian: "زمان طولانی" },
-        phrase: { english: "time after time", persian: "بارها و بارها" },
-        phrasalVerb: { english: "time out", persian: "وقت تمام شدن" }
-    },
-    "people": {
-        persian: "مردم",
-        englishDefinition: "Human beings.",
-        example: { english: "Many people live here.", persian: "مردم زیادی اینجا زندگی می‌کنند." },
-        collocation: { english: "young people", persian: "جوانان" },
-        phrase: { english: "people say", persian: "مردم می‌گویند" },
-        phrasalVerb: { english: "people up", persian: "پر از جمعیت کردن" }
+        example: {
+            english: "I see a bird.",
+            persian: "من یک پرنده می‌بینم."
+        },
+        collocation: {
+            english: "see film",
+            persian: "فیلم دیدن"
+        },
+        phrase: {
+            english: "see you later",
+            persian: "بعداً می‌بینمت"
+        },
+        phrasalVerb: {
+            english: "see to",
+            persian: "مراقب بودن"
+        }
     }
 };
 
 // المنت‌ها
 const wordInput = document.getElementById('wordInput');
 const searchBtn = document.getElementById('searchBtn');
+const muteToggle = document.getElementById('muteToggle');
 const resultsContainer = document.getElementById('resultsContainer');
 
+// وضعیت
+let isMuted = false;
+
 // رویدادها
+document.addEventListener('DOMContentLoaded', initApp);
 searchBtn.addEventListener('click', handleSearch);
 wordInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') handleSearch();
 });
+muteToggle.addEventListener('click', toggleMute);
+
+// مقداردهی اولیه
+function initApp() {
+    // فوکوس روی input
+    wordInput.focus();
+    
+    // نمایش پیام خوش‌آمد
+    showWelcome();
+}
 
 // جستجو
 function handleSearch() {
@@ -103,76 +138,177 @@ function handleSearch() {
     }
     
     if (!A1_DICTIONARY[word]) {
-        showError(`کلمه "${word}" یافت نشد. کلمات موجود: be, have, go, work, see, say, know, like, time, people`);
+        showError(`"${word}" یافت نشد. کلمات: be, have, go, work, see`);
         return;
     }
     
-    displayWordResult(word);
+    // نمایش نتیجه
+    displayWord(word);
+    
+    // تلفظ خودکار
+    if (!isMuted && 'speechSynthesis' in window) {
+        speakWord(word);
+    }
 }
 
-// نمایش نتیجه
-function displayWordResult(word) {
+// نمایش لغت
+function displayWord(word) {
     const data = A1_DICTIONARY[word];
     
     const html = `
         <div class="word-card">
-            <div class="word-title">
-                <div class="english-word">${word}</div>
-                <div class="persian-meaning">${data.persian}</div>
+            <div class="word-header">
+                <div class="word-title">
+                    <div class="english-word">${word}</div>
+                    <div class="persian-meaning">${data.persian}</div>
+                </div>
+                <button class="sound-btn" onclick="speakWord('${word}')" ${isMuted ? 'disabled' : ''}>
+                    <i class="fas fa-volume-up"></i>
+                </button>
             </div>
             
-            <div class="section">
-                <h3><i class="fas fa-info-circle"></i> تعریف انگلیسی</h3>
-                <p>${data.englishDefinition}</p>
+            <div class="info-section">
+                <div class="section-title">
+                    <i class="fas fa-info-circle"></i>
+                    <span>تعریف انگلیسی</span>
+                </div>
+                <div class="text-box definition-box">
+                    <div class="english-box">${data.englishDefinition}</div>
+                </div>
             </div>
             
-            <div class="section">
-                <h3><i class="fas fa-comment-alt"></i> مثال</h3>
-                <p><strong>انگلیسی:</strong> ${data.example.english}</p>
-                <p><strong>فارسی:</strong> ${data.example.persian}</p>
+            <div class="info-section">
+                <div class="section-title">
+                    <i class="fas fa-comment"></i>
+                    <span>مثال</span>
+                </div>
+                <div class="text-box example-box">
+                    <div class="english-box">${data.example.english}</div>
+                    <div class="persian-box">${data.example.persian}</div>
+                </div>
             </div>
             
-            <div class="section">
-                <h3><i class="fas fa-link"></i> Collocation</h3>
-                <p><strong>انگلیسی:</strong> ${data.collocation.english}</p>
-                <p><strong>فارسی:</strong> ${data.collocation.persian}</p>
+            <div class="info-section">
+                <div class="section-title">
+                    <i class="fas fa-link"></i>
+                    <span>Collocation</span>
+                </div>
+                <div class="text-box collocation-box">
+                    <div class="english-box">${data.collocation.english}</div>
+                    <div class="persian-box">${data.collocation.persian}</div>
+                </div>
             </div>
             
-            <div class="section">
-                <h3><i class="fas fa-quote-right"></i> Phrase</h3>
-                <p><strong>انگلیسی:</strong> ${data.phrase.english}</p>
-                <p><strong>فارسی:</strong> ${data.phrase.persian}</p>
+            <div class="info-section">
+                <div class="section-title">
+                    <i class="fas fa-quote-right"></i>
+                    <span>Phrase</span>
+                </div>
+                <div class="text-box phrase-box">
+                    <div class="english-box">${data.phrase.english}</div>
+                    <div class="persian-box">${data.phrase.persian}</div>
+                </div>
             </div>
             
-            <div class="section">
-                <h3><i class="fas fa-bolt"></i> Phrasal Verb</h3>
-                <p><strong>انگلیسی:</strong> ${data.phrasalVerb.english}</p>
-                <p><strong>فارسی:</strong> ${data.phrasalVerb.persian}</p>
+            <div class="info-section">
+                <div class="section-title">
+                    <i class="fas fa-bolt"></i>
+                    <span>Phrasal Verb</span>
+                </div>
+                <div class="text-box phrasal-box">
+                    <div class="english-box">${data.phrasalVerb.english}</div>
+                    <div class="persian-box">${data.phrasalVerb.persian}</div>
+                </div>
             </div>
+            
+            ${isMuted ? 
+                '<div class="pronunciation-message"><i class="fas fa-volume-mute"></i> حالت بی‌صدا فعال است</div>' : 
+                '<div class="pronunciation-message"><i class="fas fa-volume-up"></i> تلفظ پخش شد</div>'
+            }
         </div>
     `;
     
     resultsContainer.innerHTML = html;
     
-    // تلفظ خودکار
-    if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(word);
-        utterance.lang = 'en-US';
-        utterance.rate = 0.7;
-        speechSynthesis.speak(utterance);
+    // اسکرول به بالا
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// تلفظ کلمه
+function speakWord(word) {
+    if (isMuted || !('speechSynthesis' in window)) return;
+    
+    speechSynthesis.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.7;
+    
+    // سعی برای صدای زنانه
+    const voices = speechSynthesis.getVoices();
+    const femaleVoice = voices.find(v => 
+        v.lang === 'en-US' && 
+        v.name.toLowerCase().includes('female')
+    );
+    
+    if (femaleVoice) utterance.voice = femaleVoice;
+    
+    speechSynthesis.speak(utterance);
+}
+
+// تغییر حالت صدا
+function toggleMute() {
+    isMuted = !isMuted;
+    const icon = muteToggle.querySelector('i');
+    const text = muteToggle.querySelector('span');
+    
+    if (isMuted) {
+        icon.className = 'fas fa-volume-mute';
+        text.textContent = 'صدا خاموش است';
+        muteToggle.classList.add('muted');
+    } else {
+        icon.className = 'fas fa-volume-up';
+        text.textContent = 'صدا روشن است';
+        muteToggle.classList.remove('muted');
     }
+}
+
+// نمایش خوش‌آمد
+function showWelcome() {
+    resultsContainer.innerHTML = `
+        <div class="welcome-card">
+            <div class="welcome-icon">
+                <i class="fas fa-language"></i>
+            </div>
+            <h2>لغت انگلیسی خود را جستجو کنید</h2>
+            <p>کلمه مورد نظر را بنویسید و دکمه جستجو را بزنید</p>
+            
+            <div class="quick-guide">
+                <h3><i class="fas fa-rocket"></i> نحوه استفاده:</h3>
+                <p>1. کلمه انگلیسی را در کادر بالا بنویسید</p>
+                <p>2. دکمه جستجو را بزنید یا Enter را فشار دهید</p>
+                <p>3. اطلاعات کامل با تلفظ نمایش داده می‌شود</p>
+            </div>
+        </div>
+    `;
 }
 
 // نمایش خطا
 function showError(message) {
     resultsContainer.innerHTML = `
-        <div class="error">
+        <div class="error-card">
             <i class="fas fa-exclamation-triangle"></i>
-            <h3>خطا</h3>
+            <h3>کلمه یافت نشد</h3>
             <p>${message}</p>
-            <button onclick="location.reload()" style="margin-top: 15px; padding: 10px 20px; background: var(--primary-color); color: white; border: none; border-radius: 8px;">
-                دوباره امتحان کن
+            <button class="back-btn" onclick="showWelcome()">
+                بازگشت
             </button>
         </div>
     `;
+}
+
+// تابع کمکی برای جستجوی سریع
+function searchWord(word) {
+    wordInput.value = word;
+    handleSearch();
 }
