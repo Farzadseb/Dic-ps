@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کوییز A1 - دیکشنری آموزشی</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <a href="index.html" class="logo" style="text-decoration: none; color: inherit;">
+                        <i class="fas fa-book-open"></i>
+                        <span>کوییز A1</span>
+                    </a>
+                    <div class="app-version">سطح: مبتدی</div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-icon" id="quizTimer">
+                        <i class="fas fa-clock"></i>
+                        <span id="timerDisplay">20:00</span>
+                    </button>
+                    <button class="btn-primary" onclick="startNewQuiz()">
+                        <i class="fas fa-play"></i>
+                        کوییز جدید
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="quiz-container">
+                <!-- حالت انتخاب -->
+                <div class="quiz-selection" id="quizSelection">
+                    <div class="selection-header">
+                        <h2><i class="fas fa-gamepad"></i> کوییز سطح A1</h2>
+                        <p>تمرین‌های تعاملی برای تقویت لغات انگلیسی</p>
+                    </div>
+                    
+                    <div class="quiz-types">
+                        <div class="quiz-type-card" onclick="selectQuizType('vocabulary')">
+                            <div class="type-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h3>لغت‌شناسی</h3>
+                            <p>سوالات چندگزینه‌ای از معنی کلمات</p>
+                            <div class="type-info">
+                                <span><i class="fas fa-question-circle"></i> 20 سوال</span>
+                                <span><i class="fas fa-clock"></i> 15 دقیقه</span>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-type-card" onclick="selectQuizType('grammar')">
+                            <div class="type-icon">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <h3>گرامر</h3>
+                            <p>تمرین ساختارهای دستوری سطح A1</p>
+                            <div class="type-info">
+                                <span><i class="fas fa-question-circle"></i> 15 سوال</span>
+                                <span><i class="fas fa-clock"></i> 10 دقیقه</span>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-type-card" onclick="selectQuizType('listening')">
+                            <div class="type-icon">
+                                <i class="fas fa-headphones"></i>
+                            </div>
+                            <h3>مکالمه</h3>
+                            <p>تمرین‌های شنیداری و گفتاری</p>
+                            <div class="type-info">
+                                <span><i class="fas fa-question-circle"></i> 10 سوال</span>
+                                <span><i class="fas fa-clock"></i> 8 دقیقه</span>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-type-card" onclick="selectQuizType('mixed')">
+                            <div class="type-icon">
+                                <i class="fas fa-random"></i>
+                            </div>
+                            <h3>ترکیبی</h3>
+                            <p>تمرین کامل همه مهارت‌ها</p>
+                            <div class="type-info">
+                                <span><i class="fas fa-question-circle"></i> 25 سوال</span>
+                                <span><i class="fas fa-clock"></i> 20 دقیقه</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-stats">
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalQuizzes">0</div>
+                            <div class="stat-label">تعداد کوییز</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="averageScore">0%</div>
+                            <div class="stat-label">میانگین امتیاز</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="bestStreak">0</div>
+                            <div class="stat-label">رکورد متوالی</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- حالت کوییز فعال -->
+                <div class="quiz-active" id="quizActive" style="display: none;">
+                    <div class="quiz-header">
+                        <div class="quiz-progress">
+                            <div class="progress-text">
+                                <span id="currentQuestion">1</span> از <span id="totalQuestions">20</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="quizProgressFill"></div>
+                            </div>
+                        </div>
+                        <div class="quiz-score">
+                            <span>امتیاز: <strong id="currentScore">0</strong></span>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-question" id="quizQuestion">
+                        <!-- سوالات اینجا نمایش داده می‌شود -->
+                    </div>
+                    
+                    <div class="quiz-answers" id="quizAnswers">
+                        <!-- گزینه‌ها اینجا نمایش داده می‌شود -->
+                    </div>
+                    
+                    <div class="quiz-controls">
+                        <button class="btn-secondary" onclick="skipQuestion()">
+                            <i class="fas fa-forward"></i>
+                            رد کردن
+                        </button>
+                        <button class="btn-primary" onclick="nextQuestion()" id="nextBtn" style="display: none;">
+                            <i class="fas fa-arrow-left"></i>
+                            سوال بعدی
+                        </button>
+                        <button class="btn-success" onclick="finishQuiz()" id="finishBtn" style="display: none;">
+                            <i class="fas fa-flag-checkered"></i>
+                            پایان کوییز
+                        </button>
+                    </div>
+                </div>
+
+                <!-- نتایج -->
+                <div class="quiz-results" id="quizResults" style="display: none;">
+                    <div class="results-header">
+                        <div class="result-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h2>نتایج کوییز</h2>
+                    </div>
+                    
+                    <div class="results-stats">
+                        <div class="result-stat">
+                            <div class="stat-value" id="finalScore">0</div>
+                            <div class="stat-label">امتیاز نهایی</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="stat-value" id="correctAnswers">0</div>
+                            <div class="stat-label">پاسخ صحیح</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="stat-value" id="accuracy">0%</div>
+                            <div class="stat-label">دقت</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="stat-value" id="timeSpent">0</div>
+                            <div class="stat-label">زمان (ثانیه)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="results-details">
+                        <h3><i class="fas fa-list"></i> جزئیات پاسخ‌ها</h3>
+                        <div class="answers-list" id="answersList">
+                            <!-- لیست پاسخ‌ها -->
+                        </div>
+                    </div>
+                    
+                    <div class="results-actions">
+                        <button class="btn-secondary" onclick="reviewQuiz()">
+                            <i class="fas fa-redo"></i>
+                            مرور پاسخ‌ها
+                        </button>
+                        <button class="btn-primary" onclick="startNewQuiz()">
+                            <i class="fas fa-play"></i>
+                            کوییز جدید
+                        </button>
+                        <button class="btn-success" onclick="shareResults()">
+                            <i class="fas fa-share"></i>
+                            اشتراک نتایج
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="quiz.js"></script>
+</body>
+</html>
