@@ -1,344 +1,302 @@
-/* ریست */
+/* Reset و تنظیمات پایه */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
 }
 
-/* متغیرهای رنگ */
 :root {
-    --primary: #2563eb;
-    --primary-light: #dbeafe;
-    --primary-dark: #1d4ed8;
-    --text: #1f2937;
-    --text-light: #6b7280;
-    --background: #f8fafc;
-    --white: #ffffff;
-    --border: #e5e7eb;
-    --success: #10b981;
-    --radius: 12px;
-    --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --primary-color: #4a6bff;
+    --primary-light: #eef1ff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --border-color: #dee2e6;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --border-radius: 16px;
+    --transition: all 0.3s ease;
 }
 
-/* بدنه */
 body {
-    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--background);
-    color: var(--text);
-    line-height: 1.5;
-    padding: 16px;
+    font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7ff;
+    color: #333;
+    line-height: 1.6;
     min-height: 100vh;
+    padding: 0;
+    margin: 0;
 }
 
 .container {
     max-width: 100%;
+    min-height: 100vh;
+    padding: 20px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
 }
 
 /* هدر */
 .header {
+    background: linear-gradient(135deg, var(--primary-color), #6a82fb);
+    color: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
     text-align: center;
-    margin-bottom: 32px;
-    padding-top: 20px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .logo {
+    font-size: 1.4rem;
+    font-weight: 700;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 8px;
+    gap: 10px;
 }
 
 .logo i {
-    font-size: 28px;
-    color: var(--primary);
+    font-size: 1.6rem;
 }
 
-.logo h1 {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--text);
+.mute-toggle {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 15px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.9rem;
+    border: 2px solid transparent;
+}
+
+.mute-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.mute-toggle.active {
+    background: rgba(40, 167, 69, 0.2);
+    border-color: var(--success-color);
+}
+
+.mute-toggle.active i {
+    color: var(--success-color);
+}
+
+.mute-toggle.inactive {
+    background: rgba(220, 53, 69, 0.2);
+    border-color: var(--danger-color);
+}
+
+.mute-toggle.inactive i {
+    color: var(--danger-color);
 }
 
 .subtitle {
-    color: var(--text-light);
-    font-size: 14px;
-    font-weight: 400;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    text-align: center;
+    margin-top: 5px;
 }
 
-/* بخش جستجو */
-.search-section {
-    margin-bottom: 24px;
+/* نوار جستجو */
+.search-container {
+    margin-bottom: 20px;
 }
 
 .search-box {
     display: flex;
-    gap: 8px;
-    margin-bottom: 12px;
+    gap: 10px;
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 8px;
+    box-shadow: var(--shadow);
+    border: 2px solid transparent;
+    transition: var(--transition);
+}
+
+.search-box:focus-within {
+    border-color: var(--primary-color);
 }
 
 .english-input {
     flex: 1;
-    padding: 16px 20px;
-    font-size: 16px;
-    border: 2px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--white);
+    border: none;
+    padding: 15px 20px;
+    font-size: 1rem;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: transparent;
     outline: none;
-    transition: all 0.2s;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     text-align: left;
     direction: ltr;
-}
-
-.english-input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    min-width: 0;
 }
 
 .english-input::placeholder {
-    color: #9ca3af;
+    color: #999;
     text-align: left;
 }
 
 .search-btn {
-    width: 56px;
-    height: 56px;
-    background: var(--primary);
+    background: var(--primary-color);
     color: white;
     border: none;
-    border-radius: var(--radius);
-    font-size: 18px;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    font-size: 1.2rem;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: var(--transition);
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .search-btn:hover {
-    background: var(--primary-dark);
-}
-
-.search-hint {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    font-size: 14px;
-    color: var(--text-light);
-}
-
-.word-example {
-    background: var(--primary-light);
-    color: var(--primary-dark);
-    padding: 4px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-}
-
-.word-example:hover {
-    background: var(--primary);
-    color: white;
+    background: #3a5bef;
+    transform: translateY(-2px);
 }
 
 /* محتوای اصلی */
 .main-content {
-    margin-bottom: 24px;
+    flex: 1;
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    overflow-y: auto;
+    min-height: 300px;
 }
 
-/* کارت خوش‌آمد */
-.welcome-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 32px 24px;
+.welcome-message {
     text-align: center;
-    box-shadow: var(--shadow);
+    padding: 20px 0;
 }
 
 .welcome-icon {
-    font-size: 48px;
-    color: var(--primary);
+    font-size: 3rem;
+    color: var(--primary-color);
     margin-bottom: 20px;
 }
 
-.welcome-card h2 {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: var(--text);
+.welcome-message h2 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.4rem;
 }
 
-.welcome-card p {
-    color: var(--text-light);
-    margin-bottom: 28px;
-    font-size: 15px;
+.welcome-message p {
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+    font-size: 1rem;
 }
 
-.quick-guide {
-    text-align: right;
-    margin-top: 28px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
+.sample-words {
+    margin-top: 30px;
+    text-align: center;
 }
 
-.quick-guide h3 {
+.sample-words p {
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+.word-buttons {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 16px;
-    margin-bottom: 16px;
-    color: var(--text);
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
-.quick-guide h3 i {
-    color: var(--primary);
+.word-btn {
+    background: var(--primary-light);
+    color: var(--primary-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
 }
 
-.quick-guide p {
-    text-align: right;
-    margin-bottom: 8px;
-    color: var(--text-light);
-    font-size: 14px;
-    padding-right: 0;
-}
-
-.quick-guide p:before {
-    content: none;
+.word-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
 }
 
 /* کارت لغت */
 .word-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 24px;
-    box-shadow: var(--shadow);
-    animation: fadeIn 0.3s ease;
+    animation: fadeIn 0.5s ease;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* هدر لغت */
 .word-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 24px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--border);
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--primary-light);
+    gap: 20px;
 }
 
 .word-title {
     flex: 1;
+    min-width: 0;
 }
 
 .english-word {
-    font-size: 32px;
+    font-size: 1.8rem;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--primary-color);
+    font-family: 'Segoe UI', Arial, sans-serif;
     margin-bottom: 8px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    word-break: break-word;
     text-align: left;
     direction: ltr;
 }
 
 .persian-meaning {
-    font-size: 18px;
+    font-size: 1.2rem;
+    color: var(--dark-color);
     font-weight: 600;
-    color: var(--text);
     text-align: right;
 }
 
-/* بخش‌های اطلاعات */
-.info-section {
-    margin-bottom: 20px;
-}
-
-.section-title {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
-    color: var(--text);
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.section-title i {
-    color: var(--primary);
-    font-size: 14px;
-}
-
-/* جعبه‌های متن */
-.text-box {
-    background: #f9fafb;
-    border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 8px;
-    border-right: 3px solid var(--primary-light);
-}
-
-.english-box {
-    text-align: left;
-    direction: ltr;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--text);
-    margin-bottom: 12px;
-}
-
-.persian-box {
-    text-align: right;
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--text-light);
-    border-top: 1px solid var(--border);
-    padding-top: 12px;
-    margin-top: 12px;
-}
-
-/* حالت‌های مختلف */
-.definition-box {
-    border-right-color: #60a5fa;
-}
-
-.example-box {
-    border-right-color: #34d399;
-}
-
-.collocation-box {
-    border-right-color: #f59e0b;
-}
-
-.phrase-box {
-    border-right-color: #8b5cf6;
-}
-
-.phrasal-box {
-    border-right-color: #ef4444;
-}
-
-/* دکمه تلفظ */
 .sound-btn {
     background: var(--primary-light);
-    border: 2px solid var(--primary);
-    width: 48px;
-    height: 48px;
+    border: 2px solid var(--primary-color);
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    color: var(--primary);
-    font-size: 18px;
+    font-size: 1.2rem;
+    color: var(--primary-color);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: var(--transition);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -346,7 +304,7 @@ body {
 }
 
 .sound-btn:hover {
-    background: var(--primary);
+    background: var(--primary-color);
     color: white;
     transform: scale(1.05);
 }
@@ -356,194 +314,277 @@ body {
     cursor: not-allowed;
 }
 
-/* پیام تلفظ */
-.pronunciation-message {
-    background: #ecfdf5;
-    color: #065f46;
-    padding: 12px 16px;
-    border-radius: 8px;
-    margin-top: 24px;
+.sound-btn:disabled:hover {
+    background: var(--primary-light);
+    color: var(--primary-color);
+    transform: none;
+}
+
+/* بخش‌های مختلف */
+.section {
+    margin-bottom: 20px;
+    padding: 18px;
+    background: var(--light-color);
+    border-radius: 12px;
+    border-right: 3px solid var(--primary-color);
+}
+
+.section-title {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 14px;
+    gap: 10px;
+    margin-bottom: 12px;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.section-title i {
+    font-size: 1rem;
+}
+
+.section-content {
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.english-text {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: var(--dark-color);
+    margin-bottom: 10px;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+    border-right: 2px solid var(--border-color);
+    text-align: left;
+    direction: ltr;
+    word-break: break-word;
+}
+
+.persian-text {
+    color: #2d3748;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    border-right: 2px solid var(--primary-light);
+    font-weight: 500;
+    line-height: 1.7;
+    text-align: right;
+}
+
+/* پیام تلفظ */
+.pronunciation-message {
+    background: var(--success-color);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 .pronunciation-message i {
-    color: #10b981;
+    font-size: 1.1rem;
 }
 
-/* حالت بی‌صدا */
-.muted-note {
-    background: #fef3c7;
-    color: #92400e;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 12px;
-    margin-right: auto;
-}
-
-/* خطا و لودینگ */
-.error-card, .loading-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 40px 24px;
-    text-align: center;
-    box-shadow: var(--shadow);
-}
-
-.error-card i, .loading-card i {
-    font-size: 48px;
-    margin-bottom: 20px;
-}
-
-.error-card i {
-    color: #ef4444;
-}
-
-.loading-card i {
-    color: var(--primary);
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-.error-card h3, .loading-card h3 {
-    font-size: 18px;
-    margin-bottom: 12px;
-    color: var(--text);
-}
-
-.error-card p, .loading-card p {
-    color: var(--text-light);
-    margin-bottom: 24px;
-}
-
-.back-btn {
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.back-btn:hover {
-    background: var(--primary-dark);
+.pronunciation-message.muted {
+    background: var(--danger-color);
 }
 
 /* فوتر */
 .footer {
-    margin-top: auto;
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
-}
-
-.sound-control {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: var(--white);
-    padding: 12px 20px;
-    border-radius: var(--radius);
-    margin-bottom: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 18px;
     box-shadow: var(--shadow);
-    width: fit-content;
-    margin: 0 auto 12px;
 }
 
-.sound-control:hover {
-    background: #f9fafb;
-}
-
-.sound-control.muted {
-    background: #fef2f2;
-    color: #dc2626;
-}
-
-.sound-control.muted i {
-    color: #dc2626;
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 .footer-info {
     display: flex;
-    justify-content: center;
-    gap: 12px;
-    font-size: 12px;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
-.level-tag, .accent-tag {
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--secondary-color);
+    font-size: 0.85rem;
+}
+
+.info-item i {
+    font-size: 0.9rem;
+}
+
+.sound-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
     background: var(--primary-light);
-    color: var(--primary-dark);
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-weight: 500;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--primary-color);
+}
+
+.indicator-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--success-color);
+    transition: var(--transition);
+}
+
+.indicator-dot.active {
+    background: var(--success-color);
+    box-shadow: 0 0 8px var(--success-color);
+}
+
+.indicator-dot.inactive {
+    background: var(--danger-color);
+    box-shadow: 0 0 8px var(--danger-color);
+}
+
+/* خطا و لودینگ */
+.error-message {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--danger-color);
+}
+
+.error-message i {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--primary-color);
+}
+
+.loading-spinner {
+    border: 4px solid var(--primary-light);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* رسپانسیو */
-@media (max-width: 480px) {
-    body {
-        padding: 12px;
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
     }
     
     .header {
-        margin-bottom: 24px;
+        padding: 18px;
     }
     
-    .logo h1 {
-        font-size: 20px;
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
     }
     
     .english-word {
-        font-size: 28px;
+        font-size: 1.6rem;
+    }
+    
+    .section {
+        padding: 15px;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    
+    .footer-info {
+        justify-content: center;
+    }
+    
+    .search-box {
+        flex-direction: column;
+        padding: 6px;
+    }
+    
+    .search-btn {
+        width: 100%;
+        height: 45px;
+        margin-top: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 12px;
+    }
+    
+    .main-content {
+        padding: 20px 15px;
+    }
+    
+    .english-word {
+        font-size: 1.4rem;
+    }
+    
+    .persian-meaning {
+        font-size: 1.1rem;
     }
     
     .word-header {
         flex-direction: column;
-        gap: 16px;
         align-items: flex-start;
+        gap: 15px;
     }
     
     .sound-btn {
         align-self: flex-start;
     }
     
-    .search-box {
-        flex-direction: column;
+    .word-buttons {
+        gap: 8px;
     }
     
-    .search-btn {
-        width: 100%;
-        height: 48px;
-    }
-    
-    .text-box {
-        padding: 14px;
-    }
-    
-    .welcome-card {
-        padding: 24px 16px;
+    .word-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
     }
 }
 
-@media (max-width: 360px) {
-    .english-word {
-        font-size: 24px;
-    }
-    
-    .persian-meaning {
-        font-size: 16px;
-    }
-    
-    .welcome-card h2 {
-        font-size: 18px;
-    }
+/* بهبود قابلیت لمس */
+button, .mute-toggle {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
 }
+
+/* جلوگیری از zoom روی iOS */
+input, textarea, select {
+    font-size: 16px;
+    }
