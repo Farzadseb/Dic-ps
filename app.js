@@ -1169,4 +1169,230 @@ function displayWordResult(word) {
                     <div class="english-text">${wordData.example.english}</div>
                     <div class="persian-text">${wordData.example.persian}</div>
                 </div>
-          </
+            </div>
+            
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-link"></i>
+                    <span>Collocation</span>
+                </div>
+                <div class="section-content">
+                    <div class="english-text">${wordData.collocation.english}</div>
+                    <div class="persian-text">${wordData.collocation.persian}</div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-quote-right"></i>
+                    <span>Phrase / Expression</span>
+                </div>
+                <div class="section-content">
+                    <div class="english-text">${wordData.phrase.english}</div>
+                    <div class="persian-text">${wordData.phrase.persian}</div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-bolt"></i>
+                    <span>Phrasal Verb (سطح A1)</span>
+                </div>
+                <div class="section-content">
+                    <div class="english-text">${wordData.phrasalVerb.english}</div>
+                    <div class="persian-text">${wordData.phrasalVerb.persian}</div>
+                </div>
+            </div>
+            
+            <div class="pronunciation-note">
+                <i class="fas fa-volume-up"></i>
+                <span>تلفظ این کلمه بلافاصله بعد از جستجو پخش شد</span>
+                ${isMuted ? '<span class="muted-note">(در حال حاضر حالت بی‌صدا فعال است)</span>' : ''}
+            </div>
+        </div>
+    `;
+    
+    resultsContainer.innerHTML = html;
+}
+
+// تلفظ کلمه
+function speakWord(word) {
+    if (isMuted || !speechSynthesis) return;
+    
+    speechSynthesis.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(word);
+    Object.assign(utterance, SPEECH_SETTINGS);
+    
+    // انتخاب صدای زنانه
+    const voices = speechSynthesis.getVoices();
+    if (voices.length > 0) {
+        const femaleVoice = voices.find(voice => 
+            voice.lang === 'en-US' && 
+            (voice.name.toLowerCase().includes('female') || 
+             voice.name.toLowerCase().includes('woman') ||
+             voice.name.toLowerCase().includes('samantha'))
+        );
+        
+        if (femaleVoice) {
+            utterance.voice = femaleVoice;
+        } else {
+            utterance.voice = voices[0];
+        }
+    }
+    
+    utterance.onstart = () => {
+        updatePronunciationStatus('در حال پخش تلفظ...', 'playing');
+    };
+    
+    utterance.onend = () => {
+        updatePronunciationStatus('تلفظ کامل شد', 'completed');
+    };
+    
+    utterance.onerror = (error) => {
+        console.error('خطا در تلفظ:', error);
+        updatePronunciationStatus('خطا در پخش تلفظ', 'error');
+    };
+    
+    speechSynthesis.speak(utterance);
+}
+
+// تغییر حالت صدا
+function toggleMute() {
+    isMuted = !isMuted;
+    updateMuteUI();
+    
+    if (isMuted) {
+        speechSynthesis.cancel();
+    }
+}
+
+// بروزرسانی UI حالت صدا
+function updateMuteUI() {
+    const icon = muteToggle.querySelector('i');
+    const text = muteToggle.querySelector('span');
+    
+    if (isMuted) {
+        icon.className = 'fas fa-volume-mute';
+        text.textContent = 'صدا خاموش';
+        muteToggle.classList.add('muted');
+    } else {
+        icon.className = 'fas fa-volume-up';
+        text.textContent = 'صدا روشن';
+        muteToggle.classList.remove('muted');
+    }
+}
+
+// بروزرسانی وضعیت تلفظ
+function updatePronunciationStatus(message, status) {
+    const statusContent = pronunciationStatus.querySelector('.status-content span');
+    const statusIcon = pronunciationStatus.querySelector('.status-content i');
+    
+    if (statusContent) {
+        statusContent.textContent = message;
+        
+        switch(status) {
+            case 'playing':
+                statusIcon.className = 'fas fa-volume-up';
+                statusIcon.style.color = '#28a745';
+                break;
+            case 'completed':
+                statusIcon.className = 'fas fa-check-circle';
+                statusIcon.style.color = '#28a745';
+                break;
+            case 'error':
+                statusIcon.className = 'fas fa-exclamation-circle';
+                statusIcon.style.color = '#dc3545';
+                break;
+            default:
+                statusIcon.className = 'fas fa-volume-up';
+                statusIcon.style.color = '#28a745';
+        }
+    }
+}
+
+// نمایش پیام خوش‌آمد
+function showWelcomeMessage() {
+    resultsContainer.innerHTML = `
+        <div class="welcome-message">
+            <div class="welcome-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h2>دیکشنری آموزشی سطح A1 - 200 لغت اصلی</h2>
+            <p>لغت انگلیسی خود را جستجو کنید (مانند: be, have, go, work)</p>
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span>200 لغت اصلی A1</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span>معنی فارسی دقیق</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span>مثال انگلیسی و فارسی</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span>تلفظ خودکار</span>
+                </div>
+            </div>
+            <div class="instructions">
+                <h3><i class="fas fa-info-circle"></i> نمونه کلمات:</h3>
+                <p>• be (بودن) • have (داشتن) • go (رفتن) • work (کار کردن)</p>
+                <p>• see (دیدن) • say (گفتن) • know (دانستن) • like (دوست داشتن)</p>
+                <p>• time (زمان) • people (مردم) • friend (دوست) • family (خانواده)</p>
+            </div>
+        </div>
+    `;
+}
+
+// نمایش حالت لودینگ
+function showLoading() {
+    resultsContainer.innerHTML = `
+        <div class="loading">
+            <div class="loading-spinner"></div>
+            <h3>در حال جستجوی لغت...</h3>
+            <p>لطفاً کمی صبر کنید</p>
+        </div>
+    `;
+}
+
+// نمایش خطا
+function showError(message) {
+    resultsContainer.innerHTML = `
+        <div class="error-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>کلمه یافت نشد</h3>
+            <p>${message}</p>
+            <p style="margin-top: 20px; color: #666;">کلمات نمونه: be, have, go, work, see, say, know</p>
+            <button onclick="showWelcomeMessage()" class="search-btn" style="margin-top: 20px; width: auto; padding: 12px 24px;">
+                <i class="fas fa-home"></i> بازگشت به صفحه اصلی
+            </button>
+        </div>
+    `;
+}
+
+// نمایش هشدار
+function showWarning(message) {
+    const warning = document.createElement('div');
+    warning.className = 'warning-message';
+    warning.innerHTML = `
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>${message}</span>
+    `;
+    
+    document.querySelector('.search-container').after(warning);
+    
+    setTimeout(() => {
+        warning.remove();
+    }, 5000);
+}
+
+// صدای موجود برای مرورگرهای مختلف
+if (speechSynthesis && speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = () => {
+        console.log('صداهای در دسترس به روز شدند');
+    };
+                  }
