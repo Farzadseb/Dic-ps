@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل معلم - دیکشنری آموزشی A1</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>پنل معلم</span>
+                    </div>
+                    <div class="app-version">ورژن 1.0.0</div>
+                </div>
+                <div class="header-actions">
+                    <a href="index.html" class="btn-secondary">
+                        <i class="fas fa-home"></i>
+                        صفحه اصلی
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="teacher-panel">
+                <div class="page-header">
+                    <h1 class="page-title">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        پنل مدیریت معلم
+                    </h1>
+                    <p class="page-subtitle">مدیریت دانش‌آموزان و تولید کدهای فعال‌سازی</p>
+                </div>
+
+                <div class="teacher-grid">
+                    <!-- آمار کلی -->
+                    <div class="teacher-card stats-card">
+                        <div class="card-header">
+                            <i class="fas fa-chart-bar"></i>
+                            <h3>آمار کلی</h3>
+                        </div>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-value" id="totalStudents">0</div>
+                                <div class="stat-label">دانش‌آموز فعال</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="activeCodes">0</div>
+                                <div class="stat-label">کد فعال</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="totalSearches">0</div>
+                                <div class="stat-label">جستجوی امروز</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="testsCompleted">0</div>
+                                <div class="stat-label">تست امروز</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- تولید کد -->
+                    <div class="teacher-card generate-card">
+                        <div class="card-header">
+                            <i class="fas fa-key"></i>
+                            <h3>تولید کد فعال‌سازی</h3>
+                        </div>
+                        <div class="generate-form">
+                            <div class="form-group">
+                                <label>نوع کد:</label>
+                                <select id="codeType" class="form-control">
+                                    <option value="trial">آزمایشی (7 روز)</option>
+                                    <option value="student">دانش‌آموز (30 روز)</option>
+                                    <option value="vip">ویژه (90 روز)</option>
+                                    <option value="teacher">معلم (180 روز)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>تعداد:</label>
+                                <input type="number" id="codeCount" min="1" max="10" value="1" class="form-control">
+                            </div>
+                            <button class="btn-primary" onclick="generateCodes()">
+                                <i class="fas fa-bolt"></i>
+                                تولید کد
+                            </button>
+                        </div>
+                        <div class="generated-codes" id="generatedCodes"></div>
+                    </div>
+
+                    <!-- مدیریت کدها -->
+                    <div class="teacher-card codes-card">
+                        <div class="card-header">
+                            <i class="fas fa-list"></i>
+                            <h3>مدیریت کدها</h3>
+                        </div>
+                        <div class="codes-list" id="codesList">
+                            <p style="text-align: center; padding: 40px; color: var(--text-light);">
+                                در حال بارگذاری...
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn-secondary" onclick="exportCodes()">
+                                <i class="fas fa-download"></i>
+                                خروجی Excel
+                            </button>
+                            <button class="btn-danger" onclick="clearExpiredCodes()">
+                                <i class="fas fa-trash"></i>
+                                پاکسازی کدهای منقضی
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- دانش‌آموزان -->
+                    <div class="teacher-card students-card">
+                        <div class="card-header">
+                            <i class="fas fa-users"></i>
+                            <h3>دانش‌آموزان فعال</h3>
+                        </div>
+                        <div class="students-list" id="studentsList">
+                            <p style="text-align: center; padding: 40px; color: var(--text-light);">
+                                در حال بارگذاری...
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- گزارش‌گیری -->
+                    <div class="teacher-card reports-card">
+                        <div class="card-header">
+                            <i class="fas fa-file-alt"></i>
+                            <h3>گزارش‌گیری</h3>
+                        </div>
+                        <div class="reports-options">
+                            <div class="report-type">
+                                <label>
+                                    <input type="radio" name="reportType" value="daily" checked>
+                                    <span>گزارش روزانه</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="reportType" value="weekly">
+                                    <span>گزارش هفتگی</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="reportType" value="monthly">
+                                    <span>گزارش ماهانه</span>
+                                </label>
+                            </div>
+                            <div class="date-picker">
+                                <input type="date" id="reportDate" class="form-control">
+                            </div>
+                            <button class="btn-primary" onclick="generateReport()">
+                                <i class="fas fa-chart-line"></i>
+                                ایجاد گزارش
+                            </button>
+                        </div>
+                        <div class="report-preview" id="reportPreview"></div>
+                    </div>
+
+                    <!-- تنظیمات -->
+                    <div class="teacher-card settings-card">
+                        <div class="card-header">
+                            <i class="fas fa-cogs"></i>
+                            <h3>تنظیمات</h3>
+                        </div>
+                        <div class="settings-list">
+                            <div class="setting-item">
+                                <label>تعداد جستجوی مهمان:</label>
+                                <input type="number" id="guestSearches" value="5" class="form-control">
+                            </div>
+                            <div class="setting-item">
+                                <label>حداقل امتیاز تست:</label>
+                                <input type="number" id="minTestScore" value="7" class="form-control">
+                            </div>
+                            <div class="setting-item">
+                                <label>مدت کد آزمایشی (روز):</label>
+                                <input type="number" id="trialDays" value="7" class="form-control">
+                            </div>
+                            <button class="btn-success" onclick="saveSettings()">
+                                <i class="fas fa-save"></i>
+                                ذخیره تنظیمات
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="teacher.js"></script>
+</body>
+</html>
