@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF آموزشی - دیکشنری A1</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <a href="index.html" class="logo" style="text-decoration: none; color: inherit;">
+                        <i class="fas fa-book-open"></i>
+                        <span>PDF آموزشی</span>
+                    </a>
+                    <div class="app-version">A1 Resources</div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-primary" onclick="printAllPDFs()">
+                        <i class="fas fa-print"></i>
+                        چاپ همه
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="pdf-library">
+                <div class="page-header">
+                    <h1 class="page-title">
+                        <i class="fas fa-file-pdf"></i>
+                        کتابخانه PDF آموزشی
+                    </h1>
+                    <p class="page-subtitle">منابع آموزشی سطح A1 برای دانلود و مطالعه</p>
+                </div>
+
+                <div class="pdf-categories">
+                    <div class="category-tabs">
+                        <button class="category-tab active" onclick="showCategory('vocabulary')">
+                            <i class="fas fa-book"></i>
+                            لغات
+                        </button>
+                        <button class="category-tab" onclick="showCategory('grammar')">
+                            <i class="fas fa-language"></i>
+                            گرامر
+                        </button>
+                        <button class="category-tab" onclick="showCategory('conversation')">
+                            <i class="fas fa-comments"></i>
+                            مکالمه
+                        </button>
+                        <button class="category-tab" onclick="showCategory('exercises')">
+                            <i class="fas fa-dumbbell"></i>
+                            تمرین‌ها
+                        </button>
+                        <button class="category-tab" onclick="showCategory('worksheets')">
+                            <i class="fas fa-file-alt"></i>
+                            ورک‌شیت
+                        </button>
+                    </div>
+
+                    <div class="category-content" id="categoryContent">
+                        <!-- محتوای دسته‌بندی‌ها اینجا نمایش داده می‌شود -->
+                    </div>
+                </div>
+
+                <div class="pdf-actions">
+                    <div class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <h3>دانلود همه</h3>
+                        <p>تمام PDF‌های آموزشی را یکجا دانلود کنید</p>
+                        <button class="btn-primary" onclick="downloadAllPDFs()">
+                            <i class="fas fa-download"></i>
+                            دانلود ZIP
+                        </button>
+                    </div>
+
+                    <div class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-print"></i>
+                        </div>
+                        <h3>چاپ سفارشی</h3>
+                        <p>انتخاب و چاپ PDF‌های مورد نظر</p>
+                        <button class="btn-secondary" onclick="customPrint()">
+                            <i class="fas fa-cog"></i>
+                            تنظیم چاپ
+                        </button>
+                    </div>
+
+                    <div class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <h3>اشتراک‌گذاری</h3>
+                        <p>اشتراک منابع با دیگر زبان‌آموزان</p>
+                        <button class="btn-success" onclick="shareLibrary()">
+                            <i class="fas fa-share"></i>
+                            اشتراک گذاری
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- مدال مشاهده PDF -->
+    <div class="modal-overlay" id="pdfViewerModal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 id="pdfTitle">عنوان PDF</h3>
+                <div class="modal-actions">
+                    <button class="btn-icon" onclick="downloadCurrentPDF()">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="btn-icon" onclick="printCurrentPDF()">
+                        <i class="fas fa-print"></i>
+                    </button>
+                    <button class="btn-icon btn-close" onclick="closePDFViewer()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="pdf-viewer" id="pdfViewer">
+                    <!-- PDF اینجا نمایش داده می‌شود -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="pdf.js"></script>
+</body>
+</html>
