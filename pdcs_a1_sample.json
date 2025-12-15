@@ -1,0 +1,127 @@
+{
+    "hello": {
+        "persian": "سلام",
+        "englishDefinition": "A greeting or expression of goodwill",
+        "example": {
+            "english": "Hello, how are you?",
+            "persian": "سلام، حال شما چطور است؟"
+        },
+        "collocation": {
+            "english": "say hello",
+            "persian": "سلام گفتن"
+        },
+        "phrase": {
+            "english": "hello there",
+            "persian": "سلام بر تو"
+        },
+        "phrasalVerb": {
+            "english": "hello to",
+            "persian": "سلام کردن به"
+        },
+        "pronunciation": "/həˈləʊ/",
+        "synonyms": ["hi", "greetings"],
+        "category": "greetings",
+        "difficulty": 1,
+        "tags": ["basic", "greeting", "common"]
+    },
+    "goodbye": {
+        "persian": "خداحافظ",
+        "englishDefinition": "A word used when parting",
+        "example": {
+            "english": "Goodbye, see you tomorrow!",
+            "persian": "خداحافظ، فردا می‌بینمت!"
+        },
+        "collocation": {
+            "english": "say goodbye",
+            "persian": "خداحافظی گفتن"
+        },
+        "phrase": {
+            "english": "goodbye for now",
+            "persian": "فعلاً خداحافظ"
+        },
+        "phrasalVerb": {
+            "english": "goodbye to",
+            "persian": "خداحافظی کردن با"
+        },
+        "pronunciation": "/ɡʊdˈbaɪ/",
+        "synonyms": ["bye", "farewell"],
+        "category": "greetings",
+        "difficulty": 1,
+        "tags": ["basic", "greeting", "common"]
+    },
+    "book": {
+        "persian": "کتاب",
+        "englishDefinition": "A written or printed work",
+        "example": {
+            "english": "I read an interesting book yesterday.",
+            "persian": "دیروز یک کتاب جالب خواندم."
+        },
+        "collocation": {
+            "english": "read book",
+            "persian": "کتاب خواندن"
+        },
+        "phrase": {
+            "english": "book of the month",
+            "persian": "کتاب ماه"
+        },
+        "phrasalVerb": {
+            "english": "book in",
+            "persian": "رزرو کردن"
+        },
+        "pronunciation": "/bʊk/",
+        "synonyms": ["novel", "volume"],
+        "category": "objects",
+        "difficulty": 1,
+        "tags": ["noun", "object", "common"]
+    },
+    "pen": {
+        "persian": "خودکار",
+        "englishDefinition": "A tool for writing with ink",
+        "example": {
+            "english": "Can I borrow your pen?",
+            "persian": "می‌توانم خودکارت را قرض بگیرم؟"
+        },
+        "collocation": {
+            "english": "blue pen",
+            "persian": "خودکار آبی"
+        },
+        "phrase": {
+            "english": "pen and paper",
+            "persian": "قلم و کاغذ"
+        },
+        "phrasalVerb": {
+            "english": "pen down",
+            "persian": "نوشتن"
+        },
+        "pronunciation": "/pen/",
+        "synonyms": ["ballpoint", "biro"],
+        "category": "objects",
+        "difficulty": 1,
+        "tags": ["noun", "object", "stationery"]
+    },
+    "table": {
+        "persian": "میز",
+        "englishDefinition": "A piece of furniture with a flat top",
+        "example": {
+            "english": "The book is on the table.",
+            "persian": "کتاب روی میز است."
+        },
+        "collocation": {
+            "english": "wooden table",
+            "persian": "میز چوبی"
+        },
+        "phrase": {
+            "english": "table of contents",
+            "persian": "فهرست مطالب"
+        },
+        "phrasalVerb": {
+            "english": "table the motion",
+            "persian": "به تعویق انداختن"
+        },
+        "pronunciation": "/ˈteɪb(ə)l/",
+        "synonyms": ["desk", "counter"],
+        "category": "furniture",
+        "difficulty": 1,
+        "tags": ["noun", "furniture", "common"]
+    }
+}
